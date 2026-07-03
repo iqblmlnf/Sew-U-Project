@@ -1,0 +1,1373 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sew U - Panel Admin CMS</title>
+    
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+    
+    <!-- ADMIN PANEL SPECIFIC OVERLAY CSS -->
+    <style>
+      body.admin-body {
+        background-color: #f0eae1;
+        display: flex;
+        min-height: 100vh;
+      }
+      
+      .admin-layout {
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+      }
+      
+      /* Sidebar */
+      .admin-sidebar {
+        width: 260px;
+        background-color: #2e2218;
+        color: #f4efea;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-shrink: 0;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+      }
+      
+      .admin-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Playfair Display', serif;
+        font-size: 24px;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(244, 239, 234, 0.1);
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .admin-logo .logo-icon {
+        color: #9d7b58;
+      }
+      
+      .admin-menu {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex-grow: 1;
+      }
+      
+      .admin-menu li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(244, 239, 234, 0.7);
+        transition: all 0.3s;
+      }
+      
+      .admin-menu li:hover,
+      .admin-menu li.active {
+        background-color: #9d7b58;
+        color: #ffffff;
+      }
+      
+      .admin-menu li i {
+        font-size: 16px;
+      }
+      
+      .admin-sidebar-footer {
+        border-top: 1px solid rgba(244, 239, 234, 0.1);
+        padding-top: 20px;
+        font-size: 11px;
+        color: rgba(244, 239, 234, 0.4);
+      }
+      
+      /* Main Content Area */
+      .admin-content {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(157, 123, 88, 0.2);
+        padding-bottom: 20px;
+      }
+      
+      .admin-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        color: #1a120b;
+      }
+      
+      .admin-header h1 span {
+        font-size: 14px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        background-color: #e5d6c1;
+        color: #7a5b3b;
+        padding: 4px 12px;
+        border-radius: 999px;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+      
+      .admin-actions-top {
+        display: flex;
+        gap: 12px;
+      }
+      
+      .btn-admin-preview {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #ffffff;
+        color: #1a120b;
+        border: 1px solid #9d7b58;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .btn-admin-preview:hover {
+        background-color: #faf7f3;
+        transform: translateY(-1px);
+      }
+      
+      /* Form Panels */
+      .admin-panel-card {
+        background-color: #ffffff;
+        border-radius: 18px;
+        border: 1px solid rgba(157, 123, 88, 0.2);
+        box-shadow: 0 10px 25px rgba(46, 34, 24, 0.04);
+        padding: 30px;
+        display: none;
+      }
+      
+      .admin-panel-card.active {
+        display: block;
+      }
+      
+      .panel-section-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-left: 4px solid #9d7b58;
+        padding-left: 12px;
+        color: #2e2218;
+      }
+      
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .form-group.full-width {
+        grid-column: span 2;
+      }
+      
+      .form-group label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #2e2218;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .form-group input[type="text"],
+      .form-group textarea {
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #eadfce;
+        background-color: #faf7f3;
+        color: #1a120b;
+        outline: none;
+        transition: all 0.3s;
+      }
+      
+      .form-group input[type="text"]:focus,
+      .form-group textarea:focus {
+        border-color: #9d7b58;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(157, 123, 88, 0.1);
+      }
+      
+      .form-group textarea {
+        resize: vertical;
+        min-height: 90px;
+      }
+      
+      /* Image upload styles */
+      .image-upload-wrapper {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        background-color: #faf7f3;
+        padding: 16px;
+        border-radius: 8px;
+        border: 1px dashed #9d7b58;
+      }
+      
+      .image-preview-container {
+        width: 100px;
+        height: 100px;
+        border-radius: 8px;
+        border: 1px solid #eadfce;
+        overflow: hidden;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      
+      .image-preview-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .image-upload-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .image-upload-controls p {
+        font-size: 11px;
+        color: #675d53;
+      }
+      
+      .btn-upload-file {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        background-color: #9d7b58;
+        color: #ffffff;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s;
+      }
+      
+      .btn-upload-file:hover {
+        background-color: #7a5b3b;
+      }
+      
+      .btn-upload-file input[type="file"] {
+        position: absolute;
+        font-size: 100px;
+        opacity: 0;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+      }
+      
+      /* Save & Reset buttons */
+      .panel-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 16px;
+        border-top: 1px solid rgba(157, 123, 88, 0.15);
+        padding-top: 24px;
+        margin-top: 10px;
+      }
+      
+      .btn-admin-save {
+        background-color: #2e2218;
+        color: #ffffff;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s;
+      }
+      
+      .btn-admin-save:hover {
+        background-color: #9d7b58;
+        transform: translateY(-1px);
+      }
+      
+      .btn-admin-reset {
+        background-color: transparent;
+        color: #7a5b3b;
+        border: 1px solid rgba(157, 123, 88, 0.4);
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .btn-admin-reset:hover {
+        background-color: rgba(157, 123, 88, 0.05);
+      }
+      
+      /* Toast notification */
+      .admin-toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: #2e2218;
+        color: #ffffff;
+        padding: 16px 28px;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+        font-weight: 500;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 9999;
+      }
+      
+      .admin-toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      
+      .admin-toast i {
+        color: #9d7b58;
+        font-size: 18px;
+      }
+      
+      /* Dashboard summary info card */
+      .summary-card {
+        background: linear-gradient(135deg, #2e2218, #4d3a2b);
+        color: #ffffff;
+        border-radius: 18px;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        box-shadow: 0 10px 25px rgba(46,34,24,0.15);
+      }
+      
+      .summary-text h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+      
+      .summary-text p {
+        color: rgba(244, 239, 234, 0.8);
+        font-size: 13px;
+        max-width: 500px;
+      }
+      
+      .summary-icon {
+        font-size: 64px;
+        color: rgba(157, 123, 88, 0.3);
+      }
+      
+      .system-backup-section {
+        background-color: #ffffff;
+        border-radius: 18px;
+        border: 1px solid rgba(157, 123, 88, 0.2);
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .backup-buttons {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      
+      .btn-backup-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #ffffff;
+        color: #2e2218;
+        border: 1px solid #2e2218;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .btn-backup-outline:hover {
+        background-color: #2e2218;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+
+  <body class="admin-body">
+    <div class="admin-layout">
+      <!-- SIDEBAR -->
+      <aside class="admin-sidebar">
+        <div>
+          <div class="admin-logo">
+            <span class="logo-icon"><i class="bi bi-shield-lock-fill"></i></span>
+            <span>Sew U Admin</span>
+          </div>
+          <ul class="admin-menu">
+            <li class="active" data-tab="dashboard"><i class="bi bi-speedometer2"></i> Ringkasan</li>
+            <li data-tab="hero"><i class="bi bi-layout-text-window-reverse"></i> Hero & Header</li>
+            <li data-tab="manual-features"><i class="bi bi-list-stars"></i> Fitur & Masalah</li>
+            <li data-tab="pricing"><i class="bi bi-tags"></i> Paket Harga</li>
+            <li data-tab="testi"><i class="bi bi-chat-quote"></i> Testimoni</li>
+            <li data-tab="footer"><i class="bi bi-telephone-x"></i> Kontak & Footer</li>
+          </ul>
+        </div>
+        <div class="admin-sidebar-footer">
+          <p>© 2026 Sew U CMS Panel</p>
+          <p>Versi 1.0 (No-Code Engine)</p>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="admin-content">
+        <!-- HEADER -->
+        <header class="admin-header">
+          <div>
+            <h1>Dashboard Pengelola Konten <span>CMS Lokal</span></h1>
+            <p>Ubah tampilan tulisan dan gambar website Anda secara langsung.</p>
+          </div>
+          <div class="admin-actions-top">
+            <a href="index.html" target="_blank" class="btn-admin-preview"><i class="bi bi-box-arrow-up-right"></i> Lihat Landing Page</a>
+          </div>
+        </header>
+
+        <!-- TAB CARD: DASHBOARD RINGKASAN -->
+        <section class="admin-panel-card active" id="panel-dashboard">
+          <div class="summary-card">
+            <div class="summary-text">
+              <h2>Selamat Datang, Melati Tailor</h2>
+              <p>Melalui panel kontrol ini, Anda dapat merubah segala teks dan aset gambar pada landing page Sew U secara langsung. Klik tombol simpan untuk melihat perubahannya.</p>
+            </div>
+            <div class="summary-icon"><i class="bi bi-pencil-square"></i></div>
+          </div>
+          
+          <div class="system-backup-section" style="margin-top: 24px;">
+            <h3 class="panel-section-title">Konfigurasi & Backup Sistem</h3>
+            <p style="font-size: 13px; color: #675d53;">Anda dapat mengunduh konfigurasi teks website ini agar dapat dipulihkan kapan saja atau diunggah ke server lain.</p>
+            
+            <div class="backup-buttons">
+              <button class="btn-backup-outline" id="btn-export-config"><i class="bi bi-download"></i> Ekspor Konfigurasi (JSON)</button>
+              
+              <div style="position: relative; display: inline-block;">
+                <button class="btn-backup-outline" id="btn-import-trigger"><i class="bi bi-upload"></i> Impor Konfigurasi (JSON)</button>
+                <input type="file" id="input-import-config" accept=".json" style="position: absolute; left: 0; top: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;" />
+              </div>
+              
+              <button class="btn-admin-reset" id="btn-reset-system" style="border-color: #d9534f; color: #d9534f; padding: 12px 24px; margin: 0;"><i class="bi bi-trash"></i> Reset Semua ke Default</button>
+            </div>
+          </div>
+          
+          <div class="admin-panel-card" style="display: block; box-shadow: none; border: none; padding: 30px 0 0 0;">
+            <h3 class="panel-section-title">Pengaturan Utama Website (SEO)</h3>
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label>Judul Tab Website (Meta Title)</label>
+                <input type="text" id="meta_title" placeholder="Sew U - Platform Digital Bisnis Jahit Anda" />
+              </div>
+              <div class="form-group full-width">
+                <label>Deskripsi Website (Meta Description - Google Search)</label>
+                <textarea id="meta_description" placeholder="Sew U adalah platform SaaS yang membantu penjahit..."></textarea>
+              </div>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-admin-save" onclick="saveCMSData()"><i class="bi bi-check-circle"></i> Simpan Pengaturan SEO</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB CARD: HERO SECTION -->
+        <section class="admin-panel-card" id="panel-hero">
+          <h3 class="panel-section-title">Navigasi Header & Logo</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nama Brand Logo</label>
+              <input type="text" id="logo_text" />
+            </div>
+            <div class="form-group">
+              <label>Slogan Logo</label>
+              <input type="text" id="logo_subtext" />
+            </div>
+            <div class="form-group">
+              <label>Tombol Navigasi Kiri (Masuk)</label>
+              <input type="text" id="btn_login" />
+            </div>
+            <div class="form-group">
+              <label>Tombol Navigasi Kanan (Mulai Gratis)</label>
+              <input type="text" id="btn_signup" />
+            </div>
+          </div>
+
+          <h3 class="panel-section-title">Teks Utama Hero Section</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Badge Atas Hero</label>
+              <input type="text" id="hero_badge" />
+            </div>
+            <div class="form-group">
+              <label>Judul Utama (Teks Hitam)</label>
+              <input type="text" id="hero_title_main" />
+            </div>
+            <div class="form-group">
+              <label>Judul Utama Sorotan (Teks Cokelat)</label>
+              <input type="text" id="hero_title_span" />
+            </div>
+            <div class="form-group full-width">
+              <label>Paragraf Deskripsi Hero</label>
+              <textarea id="hero_subtitle"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Tombol Utama Hero (Mulai Gratis)</label>
+              <input type="text" id="btn_hero_start" />
+            </div>
+            <div class="form-group">
+              <label>Tombol Sekunder Hero (Lihat Demo)</label>
+              <input type="text" id="btn_hero_demo" />
+            </div>
+          </div>
+
+          <h3 class="panel-section-title">Gambar Mockup Hero (Laptop & Smartphone)</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Gambar Mockup Utama</label>
+              <div class="image-upload-wrapper">
+                <div class="image-preview-container">
+                  <img id="preview-img_hero_mockup" src="asset/image/hero_mockup.jpg" alt="Preview hero mockup" />
+                </div>
+                <div class="image-upload-controls">
+                  <span class="btn-upload-file">
+                    <i class="bi bi-image"></i> Pilih Gambar Baru
+                    <input type="file" id="input-img_hero_mockup" data-preview="preview-img_hero_mockup" accept="image/*" />
+                  </span>
+                  <p>Format yang disarankan: JPG/PNG, rasio 16:9, ukuran maksimal 2MB.</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Kartu Melayang Kiri - Judul</label>
+              <input type="text" id="glass_float_1_title" />
+            </div>
+            <div class="form-group">
+              <label>Kartu Melayang Kiri - Keterangan</label>
+              <input type="text" id="glass_float_1_desc" />
+            </div>
+            <div class="form-group">
+              <label>Kartu Melayang Kanan - Judul</label>
+              <input type="text" id="glass_float_2_title" />
+            </div>
+            <div class="form-group">
+              <label>Kartu Melayang Kanan - Keterangan</label>
+              <input type="text" id="glass_float_2_desc" />
+            </div>
+          </div>
+
+          <h3 class="panel-section-title">Metrik & Statistik</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Metrik 1 (Angka)</label>
+              <input type="text" id="stat_num_1" />
+            </div>
+            <div class="form-group">
+              <label>Metrik 1 (Label)</label>
+              <input type="text" id="stat_lbl_1" />
+            </div>
+            <div class="form-group">
+              <label>Metrik 2 (Angka)</label>
+              <input type="text" id="stat_num_2" />
+            </div>
+            <div class="form-group">
+              <label>Metrik 2 (Label)</label>
+              <input type="text" id="stat_lbl_2" />
+            </div>
+            <div class="form-group">
+              <label>Metrik 3 (Angka)</label>
+              <input type="text" id="stat_num_3" />
+            </div>
+            <div class="form-group">
+              <label>Metrik 3 (Label)</label>
+              <input type="text" id="stat_lbl_3" />
+            </div>
+            <div class="form-group">
+              <label>Metrik 4 (Angka)</label>
+              <input type="text" id="stat_num_4" />
+            </div>
+            <div class="form-group">
+              <label>Metrik 4 (Label)</label>
+              <input type="text" id="stat_lbl_4" />
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button class="btn-admin-save" onclick="saveCMSData()"><i class="bi bi-check-circle"></i> Simpan Perubahan</button>
+          </div>
+        </section>
+
+        <!-- TAB CARD: MASALAH & FITUR -->
+        <section class="admin-panel-card" id="panel-manual-features">
+          <h3 class="panel-section-title">Section Mengelola Manual (Pain Points)</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Judul Utama Section</label>
+              <input type="text" id="manual_title_main" />
+            </div>
+            <div class="form-group">
+              <label>Judul Sorotan Section</label>
+              <input type="text" id="manual_title_span" />
+            </div>
+            
+            <!-- Card 1 -->
+            <div class="form-group">
+              <label>Kartu Masalah 1 - Judul</label>
+              <input type="text" id="manual_card_1_title" />
+            </div>
+            <div class="form-group">
+              <label>Kartu Masalah 1 - Deskripsi</label>
+              <textarea id="manual_card_1_desc"></textarea>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="form-group">
+              <label>Kartu Masalah 2 - Judul</label>
+              <input type="text" id="manual_card_2_title" />
+            </div>
+            <div class="form-group">
+              <label>Kartu Masalah 2 - Deskripsi</label>
+              <textarea id="manual_card_2_desc"></textarea>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="form-group">
+              <label>Kartu Masalah 3 - Judul</label>
+              <input type="text" id="manual_card_3_title" />
+            </div>
+            <div class="form-group">
+              <label>Kartu Masalah 3 - Deskripsi</label>
+              <textarea id="manual_card_3_desc"></textarea>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="form-group">
+              <label>Kartu Masalah 4 - Judul</label>
+              <input type="text" id="manual_card_4_title" />
+            </div>
+            <div class="form-group">
+              <label>Kartu Masalah 4 - Deskripsi</label>
+              <textarea id="manual_card_4_desc"></textarea>
+            </div>
+          </div>
+
+          <h3 class="panel-section-title">Section Fitur Lengkap (Dark Section)</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Badge Atas Fitur</label>
+              <input type="text" id="features_section_badge" />
+            </div>
+            <div class="form-group">
+              <label>Judul Section Fitur</label>
+              <input type="text" id="features_section_title" />
+            </div>
+            <div class="form-group full-width">
+              <label>Sub-judul Section Fitur</label>
+              <textarea id="features_section_subtitle"></textarea>
+            </div>
+            
+            <!-- Feature 1 -->
+            <div class="form-group">
+              <label>Fitur 1 - Judul</label>
+              <input type="text" id="feature_1_title" />
+            </div>
+            <div class="form-group">
+              <label>Fitur 1 - Deskripsi</label>
+              <textarea id="feature_1_desc"></textarea>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="form-group">
+              <label>Fitur 2 - Judul</label>
+              <input type="text" id="feature_2_title" />
+            </div>
+            <div class="form-group">
+              <label>Fitur 2 - Deskripsi</label>
+              <textarea id="feature_2_desc"></textarea>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="form-group">
+              <label>Fitur 3 - Judul</label>
+              <input type="text" id="feature_3_title" />
+            </div>
+            <div class="form-group">
+              <label>Fitur 3 - Deskripsi</label>
+              <textarea id="feature_3_desc"></textarea>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="form-group">
+              <label>Fitur 4 - Judul</label>
+              <input type="text" id="feature_4_title" />
+            </div>
+            <div class="form-group">
+              <label>Fitur 4 - Deskripsi</label>
+              <textarea id="feature_4_desc"></textarea>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="form-group">
+              <label>Fitur 5 - Judul</label>
+              <input type="text" id="feature_5_title" />
+            </div>
+            <div class="form-group">
+              <label>Fitur 5 - Deskripsi</label>
+              <textarea id="feature_5_desc"></textarea>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="form-group">
+              <label>Fitur 6 - Judul</label>
+              <input type="text" id="feature_6_title" />
+            </div>
+            <div class="form-group">
+              <label>Fitur 6 - Deskripsi</label>
+              <textarea id="feature_6_desc"></textarea>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button class="btn-admin-save" onclick="saveCMSData()"><i class="bi bi-check-circle"></i> Simpan Perubahan</button>
+          </div>
+        </section>
+
+        <!-- TAB CARD: PAKET HARGA -->
+        <section class="admin-panel-card" id="panel-pricing">
+          <h3 class="panel-section-title">Section Dashboard & Paket Harga</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Judul Dashboard - Teks Utama</label>
+              <input type="text" id="dashboard_section_title_main" />
+            </div>
+            <div class="form-group">
+              <label>Judul Dashboard - Teks Sorotan</label>
+              <input type="text" id="dashboard_section_title_span" />
+            </div>
+            <div class="form-group full-width">
+              <label>Sub-judul Dashboard</label>
+              <textarea id="dashboard_section_subtitle"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label>Dashboard Keunggulan 1</label>
+              <input type="text" id="dashboard_benefit_1" />
+            </div>
+            <div class="form-group">
+              <label>Dashboard Keunggulan 2</label>
+              <input type="text" id="dashboard_benefit_2" />
+            </div>
+            <div class="form-group">
+              <label>Dashboard Keunggulan 3</label>
+              <input type="text" id="dashboard_benefit_3" />
+            </div>
+            <div class="form-group">
+              <label>Dashboard Keunggulan 4</label>
+              <input type="text" id="dashboard_benefit_4" />
+            </div>
+            <div class="form-group">
+              <label>Tombol Ajakan Dashboard</label>
+              <input type="text" id="btn_dashboard_start" />
+            </div>
+          </div>
+          
+          <h3 class="panel-section-title">Paket Harga: Judul Section</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Judul Harga Paket</label>
+              <input type="text" id="pricing_section_title" />
+            </div>
+            <div class="form-group">
+              <label>Sub-judul Harga Paket</label>
+              <input type="text" id="pricing_section_subtitle" />
+            </div>
+          </div>
+
+          <h3 class="panel-section-title">Paket 1: FREE</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nama Paket</label>
+              <input type="text" id="price_1_name" />
+            </div>
+            <div class="form-group">
+              <label>Biaya Paket</label>
+              <input type="text" id="price_1_amount" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 1</label>
+              <input type="text" id="price_1_feature_1" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 2</label>
+              <input type="text" id="price_1_feature_2" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 3</label>
+              <input type="text" id="price_1_feature_3" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 4</label>
+              <input type="text" id="price_1_feature_4" />
+            </div>
+            <div class="form-group full-width">
+              <label>Tombol Paket 1</label>
+              <input type="text" id="btn_price_1" />
+            </div>
+          </div>
+
+          <h3 class="panel-section-title">Paket 2: PRO (Paling Populer)</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nama Paket</label>
+              <input type="text" id="price_2_name" />
+            </div>
+            <div class="form-group">
+              <label>Biaya Paket</label>
+              <input type="text" id="price_2_amount" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 1</label>
+              <input type="text" id="price_2_feature_1" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 2</label>
+              <input type="text" id="price_2_feature_2" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 3</label>
+              <input type="text" id="price_2_feature_3" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 4</label>
+              <input type="text" id="price_2_feature_4" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 5</label>
+              <input type="text" id="price_2_feature_5" />
+            </div>
+            <div class="form-group">
+              <label>Tombol Paket 2</label>
+              <input type="text" id="btn_price_2" />
+            </div>
+          </div>
+
+          <h3 class="panel-section-title">Paket 3: BUSINESS</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nama Paket</label>
+              <input type="text" id="price_3_name" />
+            </div>
+            <div class="form-group">
+              <label>Biaya Paket</label>
+              <input type="text" id="price_3_amount" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 1</label>
+              <input type="text" id="price_3_feature_1" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 2</label>
+              <input type="text" id="price_3_feature_2" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 3</label>
+              <input type="text" id="price_3_feature_3" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 4</label>
+              <input type="text" id="price_3_feature_4" />
+            </div>
+            <div class="form-group">
+              <label>Fitur Paket 5</label>
+              <input type="text" id="price_3_feature_5" />
+            </div>
+            <div class="form-group">
+              <label>Tombol Paket 3</label>
+              <input type="text" id="btn_price_3" />
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button class="btn-admin-save" onclick="saveCMSData()"><i class="bi bi-check-circle"></i> Simpan Perubahan</button>
+          </div>
+        </section>
+
+        <!-- TAB CARD: TESTIMONI -->
+        <section class="admin-panel-card" id="panel-testi">
+          <h3 class="panel-section-title">Testimoni Utama (Melati Sari)</h3>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Judul Section Testimoni</label>
+              <input type="text" id="testimoni_section_title" />
+            </div>
+            <div class="form-group">
+              <label>Sub-judul Section Testimoni</label>
+              <input type="text" id="testimoni_section_subtitle" />
+            </div>
+            
+            <div class="form-group full-width">
+              <label>Isi Kutipan Testimoni (Quote)</label>
+              <textarea id="testimoni_quote_text"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Nama Pemilik Testimoni</label>
+              <input type="text" id="testimoni_user_name" />
+            </div>
+            <div class="form-group">
+              <label>Jabatan & Lokasi (Role)</label>
+              <input type="text" id="testimoni_user_role" />
+            </div>
+            
+            <div class="form-group full-width">
+              <label>Foto Pemilik Testimoni</label>
+              <div class="image-upload-wrapper">
+                <div class="image-preview-container">
+                  <img id="preview-img_testimoni_user" src="asset/image/melati_sari.jpg" alt="Preview avatar user" />
+                </div>
+                <div class="image-upload-controls">
+                  <span class="btn-upload-file">
+                    <i class="bi bi-image"></i> Unggah Foto Baru
+                    <input type="file" id="input-img_testimoni_user" data-preview="preview-img_testimoni_user" accept="image/*" />
+                  </span>
+                  <p>Disarankan: Foto portrait rasio 1:1 (persegi), resolusi minimal 200x200px.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button class="btn-admin-save" onclick="saveCMSData()"><i class="bi bi-check-circle"></i> Simpan Perubahan</button>
+          </div>
+        </section>
+
+        <!-- TAB CARD: KONTAK & FOOTER -->
+        <section class="admin-panel-card" id="panel-footer">
+          <h3 class="panel-section-title">Section CTA Banner Bawah</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Judul CTA Bawah</label>
+              <input type="text" id="cta_title" />
+            </div>
+            <div class="form-group">
+              <label>Sub-judul CTA Bawah</label>
+              <input type="text" id="cta_subtitle" />
+            </div>
+            <div class="form-group">
+              <label>Teks Tombol Utama CTA</label>
+              <input type="text" id="btn_cta_start" />
+            </div>
+            <div class="form-group">
+              <label>Teks Tombol Sekunder CTA</label>
+              <input type="text" id="btn_cta_demo" />
+            </div>
+            <div class="form-group">
+              <label>Kelebihan 1 (Badge Kiri)</label>
+              <input type="text" id="cta_badge_1" />
+            </div>
+            <div class="form-group">
+              <label>Kelebihan 2 (Badge Tengah)</label>
+              <input type="text" id="cta_badge_2" />
+            </div>
+            <div class="form-group">
+              <label>Kelebihan 3 (Badge Kanan)</label>
+              <input type="text" id="cta_badge_3" />
+            </div>
+            
+            <div class="form-group full-width">
+              <label>Gambar Latar Belakang CTA (Mesin Jahit)</label>
+              <div class="image-upload-wrapper">
+                <div class="image-preview-container" style="width: 150px; height: 100px;">
+                  <img id="preview-img_cta_bg" src="asset/image/cta_sewing_machine.jpg" alt="Preview CTA bg" style="object-fit: cover; width: 100%; height: 100%;" />
+                </div>
+                <div class="image-upload-controls">
+                  <span class="btn-upload-file">
+                    <i class="bi bi-image"></i> Pilih Gambar Latar Baru
+                    <input type="file" id="input-img_cta_bg" data-preview="preview-img_cta_bg" accept="image/*" />
+                  </span>
+                  <p>Format yang disarankan: JPG/PNG landscape estetik.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <h3 class="panel-section-title">Kontak Hubungi Kami</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nomor Telepon (WhatsApp)</label>
+              <input type="text" id="contact_phone" />
+            </div>
+            <div class="form-group">
+              <label>Alamat Email</label>
+              <input type="text" id="contact_email" />
+            </div>
+            <div class="form-group">
+              <label>Username Instagram</label>
+              <input type="text" id="contact_instagram" />
+            </div>
+            <div class="form-group">
+              <label>Alamat Fisik Toko</label>
+              <input type="text" id="contact_address" />
+            </div>
+          </div>
+
+          <h3 class="panel-section-title">Pengaturan Footer</h3>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Deskripsi Singkat Footer</label>
+              <textarea id="footer_desc"></textarea>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button class="btn-admin-save" onclick="saveCMSData()"><i class="bi bi-check-circle"></i> Simpan Perubahan</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="admin-toast" id="toast-notif">
+      <i class="bi bi-check-circle-fill"></i>
+      <span id="toast-message">Perubahan Berhasil Disimpan!</span>
+    </div>
+
+    <!-- ADMIN CODE SCRIPTS -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Tab switching logic
+        const menuItems = document.querySelectorAll(".admin-menu li");
+        const panelCards = document.querySelectorAll(".admin-panel-card");
+        
+        menuItems.forEach(item => {
+          item.addEventListener("click", () => {
+            menuItems.forEach(i => i.classList.remove("active"));
+            item.classList.add("active");
+            
+            const targetTab = item.getAttribute("data-tab");
+            panelCards.forEach(card => {
+              card.classList.remove("active");
+              if (card.id === `panel-${targetTab}`) {
+                card.classList.add("active");
+              }
+            });
+          });
+        });
+        
+        // Initialize CMS content in inputs
+        initAdminCMS();
+        
+        // Setup image inputs to convert to base64 on file load
+        setupImageUploads();
+        
+        // System operations
+        document.getElementById("btn-reset-system").addEventListener("click", resetToDefaults);
+        document.getElementById("btn-export-config").addEventListener("click", exportCMSConfig);
+        document.getElementById("btn-import-trigger").addEventListener("click", () => {
+          document.getElementById("input-import-config").click();
+        });
+        document.getElementById("input-import-config").addEventListener("change", importCMSConfig);
+      });
+      
+      // Default database structure mapping matching index.html hardcoded texts
+      const defaultPageData = {
+        meta_title: "Sew U - Platform Digital Bisnis Jahit Anda",
+        meta_description: "Sew U adalah platform SaaS yang membantu penjahit mengelola pesanan, menampilkan portfolio, membuat website toko instan, dan mengembangkan bisnis jahit secara digital.",
+        logo_text: "Sew U",
+        logo_subtext: "Stitch Your Business",
+        btn_login: "Masuk",
+        btn_signup: "Mulai Gratis",
+        hero_badge: "SEMUA FITUR YANG PENJAHIT BUTUHKAN",
+        hero_title_main: "Platform Digital Untuk Mengembangkan ",
+        hero_title_span: "Bisnis Jahit Anda",
+        hero_subtitle: "Sew U adalah platform SaaS yang membantu Anda membuat website toko, mengelola pesanan, menampilkan portfolio, dan menjangkau lebih banyak pelanggan.",
+        btn_hero_start: "Mulai Gratis Sekarang",
+        btn_hero_demo: "Lihat Demo",
+        stat_num_1: "500+",
+        stat_lbl_1: "Penjahit Bergabung",
+        stat_num_2: "10K+",
+        stat_lbl_2: "Pesanan Dikelola",
+        stat_num_3: "99%",
+        stat_lbl_3: "Pelanggan Puas",
+        stat_num_4: "24/7",
+        stat_lbl_4: "Support Aktif",
+        img_hero_mockup: "asset/image/hero_mockup.jpg",
+        glass_float_1_title: "+45% Pendapatan",
+        glass_float_1_desc: "Rata-rata kenaikan omset",
+        glass_float_2_title: "Sistem Otomatis",
+        glass_float_2_desc: "Bebas salah catat pesanan",
+        manual_title_main: "Masih Mengelola Bisnis Jahit Secara ",
+        manual_title_span: "Manual?",
+        manual_card_1_title: "Pesanan tercecer di banyak chat",
+        manual_card_1_desc: "Sulit melacak status pesanan, detail ukuran, dan riwayat chat pelanggan secara manual.",
+        manual_card_2_title: "Sulit menampilkan portfolio",
+        manual_card_2_desc: "Hasil jahitan tidak tersusun rapi, membuat calon pelanggan ragu dengan kualitas jahitan Anda.",
+        manual_card_3_title: "Pencatatan manual memakan waktu",
+        manual_card_3_desc: "Buku catatan rentan hilang atau salah tulis ukuran, membuang waktu produksi yang berharga.",
+        manual_card_4_title: "Promosi kurang maksimal",
+        manual_card_4_desc: "Jangkauan promosi toko fisik sangat terbatas, bisnis jahit jadi sulit untuk bertumbuh.",
+        features_section_badge: "FITUR UTAMA",
+        features_section_title: "Sew U Hadir Dengan Fitur Lengkap",
+        features_section_subtitle: "Semua yang Anda butuhkan untuk mengembangkan bisnis jahit dalam satu platform terintegrasi.",
+        feature_1_title: "Website Toko Instan",
+        feature_1_desc: "Buat website profesional untuk brand jahit Anda dalam hitungan menit, tanpa coding sama sekali.",
+        feature_2_title: "Portfolio Digital",
+        feature_2_desc: "Tampilkan galeri foto hasil jahitan terbaik Anda untuk meyakinkan calon pelanggan baru.",
+        feature_3_title: "Kelola Pesanan",
+        feature_3_desc: "Pantau antrean pesanan, status fitting, hingga pembayaran dari satu dashboard terpusat.",
+        feature_4_title: "Manajemen Pelanggan",
+        feature_4_desc: "Simpan riwayat ukuran badan (lingkar dada, pinggang, dll) pelanggan agar jahit berikutnya lebih cepat.",
+        feature_5_title: "Smart Outfit Matching",
+        feature_5_desc: "Rekomendasikan kombinasi warna atasan dan bawahan yang paling cocok untuk pelanggan Anda.",
+        feature_6_title: "Laporan & Analitik",
+        feature_6_desc: "Pantau laporan omset bulanan, performa jahit, dan tren produk jahit terpopuler dengan mudah.",
+        dashboard_section_title_main: "Semua Data Bisnis Anda Dalam ",
+        dashboard_section_title_span: "Satu Dashboard",
+        dashboard_section_subtitle: "Pantau pesanan, pelanggan, pendapatan, dan perkembangan bisnis jahit Anda secara real-time dari mana saja dan kapan saja.",
+        dashboard_benefit_1: "Ringkasan bisnis dalam satu tampilan bersih",
+        dashboard_benefit_2: "Laporan pendapatan otomatis dan akurat",
+        dashboard_benefit_3: "Kelola basis data pelanggan dengan riwayat lengkap",
+        dashboard_benefit_4: "Akses multi-device kapan saja, di mana saja",
+        btn_dashboard_start: "Mulai Sekarang",
+        pricing_section_title: "Paket Fleksibel Untuk Anda",
+        pricing_section_subtitle: "Pilih paket sesuai dengan skala kebutuhan usaha jahit Anda.",
+        price_1_name: "FREE",
+        price_1_amount: "Rp0",
+        price_1_feature_1: "Website Toko Dasar",
+        price_1_feature_2: "Upload 10 Portfolio",
+        price_1_feature_3: "Kelola Pesanan Dasar",
+        price_1_feature_4: "Support Email",
+        btn_price_1: "Mulai Gratis",
+        price_2_name: "PRO",
+        price_2_amount: "Rp49.000",
+        price_2_feature_1: "Semua fitur FREE",
+        price_2_feature_2: "Unlimited Portfolio",
+        price_2_feature_3: "Dashboard & Laporan Lengkap",
+        price_2_feature_4: "Domain Custom",
+        price_2_feature_5: "Priority Support",
+        btn_price_2: "Pilih Paket Pro",
+        price_3_name: "BUSINESS",
+        price_3_amount: "Rp99.000",
+        price_3_feature_1: "Semua fitur PRO",
+        price_3_feature_2: "Multi Admin (3 User)",
+        price_3_feature_3: "Integrasi WhatsApp Business",
+        price_3_feature_4: "Fitur Promosi & Diskon",
+        price_3_feature_5: "Support Prioritas 24/7",
+        btn_price_3: "Pilih Paket Business",
+        testimoni_section_title: "Dipercaya Oleh Penjahit di Seluruh Indonesia",
+        testimoni_section_subtitle: "Cerita sukses penjahit yang bertransformasi bersama Sew U.",
+        testimoni_quote_text: "Semenjak pakai Sew U, pengelolaan pesanan pelanggan jadi jauh lebih teratur. Pelanggan juga merasa lebih percaya karena bisa melihat riwayat ukuran badan dan portfolio jahitan kami dengan mudah di link toko kami sendiri.",
+        testimoni_user_name: "Melati Sari",
+        testimoni_user_role: "Owner Melati Tailor, Bandung",
+        img_testimoni_user: "asset/image/melati_sari.jpg",
+        img_testimoni_user_avatar: "asset/image/melati_sari.jpg",
+        cta_title: "Siap Mengembangkan Bisnis Jahit Anda?",
+        cta_subtitle: "Bergabunglah dengan ribuan penjahit yang telah merasakan kemudahan mengelola bisnis jahit secara modern dengan Sew U.",
+        btn_cta_start: "Mulai Gratis Sekarang",
+        btn_cta_demo: "Lihat Demo",
+        img_cta_bg: "asset/image/cta_sewing_machine.jpg",
+        cta_badge_1: "Gratis 14 Hari Tanpa Kartu Kredit",
+        cta_badge_2: "Bisa Digunakan Tanpa Coding",
+        cta_badge_3: "Aman & Terpercaya Data Terlindungi",
+        footer_desc: "Platform digital terintegrasi untuk membantu penjahit di Indonesia mengembangkan bisnis, mengelola toko, dan menjangkau lebih banyak pelanggan secara daring.",
+        contact_phone: "0812-3456-7890",
+        contact_email: "hello@sewu.com",
+        contact_instagram: "@sew.u_official",
+        contact_address: "Jl. Fashion No. 123, Bandung"
+      };
+
+      // Load data from localStorage or fallback, and prefill forms
+      function initAdminCMS() {
+        let storedData = localStorage.getItem("sewu_page_data");
+        let pageData = {};
+        
+        if (storedData) {
+          try {
+            pageData = JSON.parse(storedData);
+          } catch(e) {
+            console.error("Error parsing JSON, loading defaults", e);
+            pageData = {...defaultPageData};
+          }
+        } else {
+          pageData = {...defaultPageData};
+          localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
+        }
+
+        // Fill all form inputs that match keys
+        Object.keys(defaultPageData).forEach(key => {
+          const inputEl = document.getElementById(key);
+          const val = pageData[key] !== undefined ? pageData[key] : defaultPageData[key];
+          
+          if (inputEl) {
+            inputEl.value = val;
+          }
+          
+          // If it is an image and has a preview container, update src
+          const previewEl = document.getElementById(`preview-${key}`);
+          if (previewEl && val) {
+            previewEl.src = val;
+          }
+        });
+      }
+
+      // Save Form inputs into localStorage
+      function saveCMSData() {
+        let storedData = localStorage.getItem("sewu_page_data");
+        let pageData = storedData ? JSON.parse(storedData) : {...defaultPageData};
+        
+        // Loop inputs and update keys
+        Object.keys(defaultPageData).forEach(key => {
+          const inputEl = document.getElementById(key);
+          if (inputEl) {
+            pageData[key] = inputEl.value;
+          }
+          // Special case: image source from previews (handles base64 or paths)
+          const previewEl = document.getElementById(`preview-${key}`);
+          if (previewEl) {
+            pageData[key] = previewEl.src;
+            // Mirror avatar with testimonial photo
+            if (key === "img_testimoni_user") {
+              pageData["img_testimoni_user_avatar"] = previewEl.src;
+            }
+          }
+        });
+        
+        localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
+        showToast("Perubahan Berhasil Disimpan!");
+      }
+
+      // Handle Image uploads and convert to Base64
+      function setupImageUploads() {
+        const fileInputs = document.querySelectorAll('input[type="file"][id^="input-img_"]');
+        fileInputs.forEach(input => {
+          input.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            const previewId = input.getAttribute("data-preview");
+            const previewImg = document.getElementById(previewId);
+            
+            if (file && previewImg) {
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                previewImg.src = event.target.result;
+                showToast("Gambar berhasil dimuat di pratinjau!");
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+        });
+      }
+
+      // Reset to defaults
+      function resetToDefaults() {
+        if (confirm("Apakah Anda yakin ingin menghapus semua kustomisasi dan mengembalikan tampilan asli website?")) {
+          localStorage.removeItem("sewu_page_data");
+          initAdminCMS();
+          showToast("Sistem berhasil di-reset ke default!");
+        }
+      }
+
+      // Show Toast Notification
+      function showToast(message) {
+        const toast = document.getElementById("toast-notif");
+        document.getElementById("toast-message").textContent = message;
+        toast.classList.add("show");
+        
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      // Export Config File (JSON)
+      function exportCMSConfig() {
+        const storedData = localStorage.getItem("sewu_page_data") || JSON.stringify(defaultPageData);
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(storedData);
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "sewu_website_config.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+        showToast("Konfigurasi JSON berhasil diekspor!");
+      }
+
+      // Import Config File (JSON)
+      function importCMSConfig(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const importedData = JSON.parse(event.target.result);
+            
+            // Validate basic keys existence
+            if (importedData.meta_title && importedData.hero_title_main) {
+              localStorage.setItem("sewu_page_data", JSON.stringify(importedData));
+              initAdminCMS();
+              showToast("Konfigurasi berhasil diimpor!");
+            } else {
+              alert("Format berkas JSON tidak valid untuk konfigurasi Sew U.");
+            }
+          } catch(err) {
+            alert("Gagal membaca berkas JSON. Pastikan format berkas benar.");
+          }
+        };
+        reader.readAsText(file);
+      }
+    </script>
+  </body>
+</html>

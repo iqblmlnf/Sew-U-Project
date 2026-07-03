@@ -1,523 +1,739 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Sew U</title>
-
+    <title data-cms-key="meta_title">Sew U - Platform Digital Bisnis Jahit Anda</title>
+    <meta name="description" data-cms-key="meta_description" content="Sew U adalah platform SaaS yang membantu penjahit mengelola pesanan, menampilkan portfolio, membuat website toko instan, dan mengembangkan bisnis jahit secara digital." />
+    
     <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <!-- HERO BG -->
-    <section class="hero-bg">
-      <nav class="navbar">
+    <!-- HEADER & NAVBAR -->
+    <header class="header-container">
+      <nav class="navbar" id="navbar">
         <!-- LOGO -->
-        <div class="logo">
+        <a href="#" class="logo" id="brand-logo">
           <div class="logo-icon">✂</div>
-
           <div class="logo-text">
-            <h2>Sew U</h2>
-            <span>Stitch Your Style</span>
+            <h2 data-cms-key="logo_text">Sew U</h2>
+            <span data-cms-key="logo_subtext">Stitch Your Business</span>
           </div>
-        </div>
+        </a>
 
         <!-- MENU -->
         <ul class="nav-menu">
-          <li><a href="#">Beranda</a></li>
-          <li><a href="#">Tentang Kami</a></li>
-          <li><a href="#">Layanan</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Smart Match</a></li>
-          <li><a href="#">Testimoni</a></li>
+          <li><a href="#beranda" class="active">Beranda</a></li>
+          <li><a href="#fitur">Fitur</a></li>
+          <li><a href="#harga">Harga</a></li>
+          <li><a href="#demo">Demo</a></li>
+          <li><a href="#testimoni">Testimoni</a></li>
+          <li><a href="#kontak">Kontak</a></li>
         </ul>
 
-        <!-- BUTTON -->
-        <a href="#" class="nav-btn">
-          Pesan Sekarang
-          <i class="bi bi-bag"></i>
-        </a>
+        <!-- NAV BUTTONS -->
+        <div class="nav-actions">
+          <a href="#login" class="btn-login" id="btn-login-nav" data-cms-key="btn_login">Masuk</a>
+          <a href="#signup" class="btn-signup" id="btn-signup-nav" data-cms-key="btn_signup">Mulai Gratis</a>
+        </div>
+        
+        <!-- MOBILE MENU TOGGLE -->
+        <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+          <i class="bi bi-list"></i>
+        </button>
       </nav>
-    </section>
+    </header>
 
-    <!-- HERO -->
-    <section class="hero">
-      <!-- HERO TEXT -->
-      <div class="hero-content">
-        <div class="hero-badge">JASA JAHIT MODERN</div>
-
-        <h1>
-          Custom Outfit <br />
-          Sesuai <span>Style</span> Kamu.
-        </h1>
-
-        <p>
-          Jasa jahit modern dengan hasil rapi, desain kekinian, dan pelayanan
-          yang nyaman.
-        </p>
-
-        <!-- BUTTONS -->
-        <div class="hero-buttons">
-          <a href="#" class="btn-black">
-            Pesan Sekarang
-            <i class="bi bi-arrow-up-right"></i>
-          </a>
-
-          <a href="#" class="btn-white">Lihat Portfolio</a>
-        </div>
-
-        <!-- REVIEW -->
-        <div class="hero-review">
-          <div class="review-users">
-            <img src="asset/user1.jpg" />
-            <img src="asset/user2.jpg" />
-            <img src="asset/user3.jpg" />
-            <img src="asset/user4.jpg" />
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="beranda">
+      <div class="hero-container">
+        <!-- HERO TEXT -->
+        <div class="hero-content">
+          <div class="hero-badge" data-cms-key="hero_badge">
+            <i class="bi bi-stars"></i> SEMUA FITUR YANG PENJAHIT BUTUHKAN
           </div>
-
-          <div class="review-text">
-            <div class="stars">★★★★★ <span>5.0</span></div>
-            <p>Dari 200+ pelanggan</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- MODEL -->
-      <img src="asset/image/model.png" alt="model" class="hero-model" />
-
-      <!-- FLOATING CARD -->
-      <div class="floating-card">
-        <div class="floating-icon">✂</div>
-
-        <div class="floating-text">
-          <h4>Kualitas Terbaik</h4>
-          <p>Jahitan Rapi & Presisi</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features">
-      <div class="feature-box">
-        <div class="feature-icon">
-          <i class="bi bi-award"></i>
-        </div>
-
-        <div class="feature-text">
-          <h4>Bahan Berkualitas</h4>
-          <p>Kami gunakan bahan pilihan terbaik.</p>
-        </div>
-      </div>
-
-      <div class="feature-box">
-        <div class="feature-icon">
-          <i class="bi bi-scissors"></i>
-        </div>
-
-        <div class="feature-text">
-          <h4>Jahitan Rapi</h4>
-          <p>Hasil jahitan rapi, kuat dan nyaman.</p>
-        </div>
-      </div>
-
-      <div class="feature-box">
-        <div class="feature-icon">
-          <i class="bi bi-stars"></i>
-        </div>
-
-        <div class="feature-text">
-          <h4>Desain Kekinian</h4>
-          <p>Model modern sesuai trend terbaru.</p>
-        </div>
-      </div>
-
-      <div class="feature-box">
-        <div class="feature-icon">
-          <i class="bi bi-lightning-charge"></i>
-        </div>
-
-        <div class="feature-text">
-          <h4>Pengerjaan Cepat</h4>
-          <p>Pengerjaan tepat waktu tanpa mengurangi kualitas.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section class="portfolio-section">
-      <!-- LEFT CARD -->
-      <div class="portfolio-card">
-        <div class="card-header">
-          <div>
-            <h2>Portfolio Kami</h2>
-            <p>Lihat beberapa hasil jahitan terbaik kami.</p>
-          </div>
-
-          <a href="#">
-            Lihat Semua
-            <i class="bi bi-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- PORTFOLIO ITEMS -->
-        <div class="portfolio-items">
-          <div class="portfolio-item">
-            <img src="images/look1.png" alt="" />
-            <h4>Dress Casual</h4>
-          </div>
-
-          <div class="portfolio-item">
-            <img src="images/look2.png" alt="" />
-            <h4>Kemeja Formal</h4>
-          </div>
-
-          <div class="portfolio-item">
-            <img src="images/look3.png" alt="" />
-            <h4>Set Outfit</h4>
-          </div>
-
-          <div class="portfolio-item">
-            <img src="images/look4.png" alt="" />
-            <h4>Hoodie Custom</h4>
-          </div>
-        </div>
-
-        <!-- DOT -->
-        <div class="dots">
-          <span class="active"></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
-      <!-- SMART CARD -->
-      <div class="smart-card">
-        <div class="smart-left">
-          <h2>
-            Smart Outfit Matching
-            <span>✨</span>
-          </h2>
-
-          <p class="smart-desc">
-            Pilih warna favoritmu dan dapatkan rekomendasi kombinasi outfit yang
-            paling cocok untuk kamu!
+          <h1>
+            <span data-cms-key="hero_title_main">Platform Digital Untuk Mengembangkan </span><br />
+            <span data-cms-key="hero_title_span" class="text-accent-span">Bisnis Jahit Anda</span>
+          </h1>
+          <p data-cms-key="hero_subtitle">
+            Sew U adalah platform SaaS yang membantu Anda membuat website toko, mengelola pesanan, menampilkan portfolio, dan menjangkau lebih banyak pelanggan.
           </p>
 
-          <!-- WARNA ATASAN -->
-          <div class="color-group">
-            <h4>Pilih Warna Atasan</h4>
+          <!-- HERO BUTTONS -->
+          <div class="hero-buttons">
+            <a href="#signup" class="btn-primary" id="btn-hero-start">
+              <span data-cms-key="btn_hero_start">Mulai Gratis Sekarang</span> <i class="bi bi-arrow-right-short"></i>
+            </a>
+            <a href="#demo" class="btn-secondary" id="btn-hero-demo">
+              <i class="bi bi-play-circle-fill"></i> <span data-cms-key="btn_hero_demo">Lihat Demo</span>
+            </a>
+          </div>
 
-            <div class="colors">
-              <span class="color black"></span>
-              <span class="color white"></span>
-              <span class="color cream"></span>
-              <span class="color brown"></span>
-              <span class="color blue"></span>
-              <span class="color olive"></span>
+          <!-- STATS BAR -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+              <div class="stat-info">
+                <h4 data-cms-key="stat_num_1">500+</h4>
+                <p data-cms-key="stat_lbl_1">Penjahit Bergabung</p>
+              </div>
             </div>
-          </div>
-
-          <!-- WARNA BAWAHAN -->
-          <div class="color-group">
-            <h4>Pilih Warna Bawahan</h4>
-
-            <div class="colors">
-              <span class="color soft"></span>
-              <span class="color beige"></span>
-              <span class="color dark-brown"></span>
-              <span class="color gray"></span>
-              <span class="color dark"></span>
-              <span class="color outline"></span>
+            <div class="stat-item">
+              <div class="stat-icon"><i class="bi bi-journal-check"></i></div>
+              <div class="stat-info">
+                <h4 data-cms-key="stat_num_2">10K+</h4>
+                <p data-cms-key="stat_lbl_2">Pesanan Dikelola</p>
+              </div>
             </div>
-          </div>
-
-          <button class="smart-btn">Lihat Rekomendasi →</button>
-        </div>
-
-        <!-- RIGHT -->
-        <div class="recommend-card">
-          <h4>Rekomendasi Untukmu</h4>
-
-          <img src="assets/images/rekomendasi.png" class="recommend-img" />
-
-          <!-- BAGIAN BAWAH -->
-          <div class="recommend-bottom">
-            <div class="mini-colors">
-              <span class="mini black"></span>
-              <span class="mini brown"></span>
-              <span class="mini beige"></span>
+            <div class="stat-item">
+              <div class="stat-icon"><i class="bi bi-emoji-smile-fill"></i></div>
+              <div class="stat-info">
+                <h4 data-cms-key="stat_num_3">99%</h4>
+                <p data-cms-key="stat_lbl_3">Pelanggan Puas</p>
+              </div>
             </div>
-
-            <h5>Black & Beige</h5>
-
-            <p>Look yang clean, modern, dan elegan.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TESTIMONI -->
-    <section class="testimonial-section">
-      <!-- HEADER -->
-      <div class="testimonial-header">
-        <div>
-          <h2>Apa Kata Mereka?</h2>
-          <p>Kepuasan pelanggan adalah prioritas kami.</p>
-        </div>
-
-        <a href="#">Lihat Semua Testimoni →</a>
-      </div>
-
-      <!-- CARD TESTIMONI -->
-      <div class="testimonial-wrapper">
-        <!-- CARD 1 -->
-        <div class="testimonial-card">
-          <div class="testimonial-content">
-            <div class="quote">❞</div>
-
-            <p class="testimonial-text">
-              Hasil jahitannya rapi banget, sesuai ekspektasi! Pelayanannya juga
-              ramah dan cepat.
-            </p>
-          </div>
-
-          <div class="testimonial-user">
-            <img src="assets/images/user1.jpg" />
-
-            <div class="user-info">
-              <h4>Dinda A.</h4>
-
-              <div class="stars">★★★★★</div>
+            <div class="stat-item">
+              <div class="stat-icon"><i class="bi bi-telephone-outbound-fill"></i></div>
+              <div class="stat-info">
+                <h4 data-cms-key="stat_num_4">24/7</h4>
+                <p data-cms-key="stat_lbl_4">Support Aktif</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- CARD 2 -->
-        <div class="testimonial-card">
-          <div class="testimonial-content">
-            <div class="quote">❞</div>
-
-            <p class="testimonial-text">
-              Baju custom dari Sew U bikin tampil lebih percaya diri.
-              Recommended!
-            </p>
-          </div>
-
-          <div class="testimonial-user">
-            <img src="assets/images/user2.jpg" />
-
-            <div class="user-info">
-              <h4>Rizky Pratama</h4>
-
-              <div class="stars">★★★★★</div>
+        <!-- HERO IMAGE / MOCKUP -->
+        <div class="hero-mockup-wrapper">
+          <img src="asset/image/hero_mockup.jpg" alt="Sew U Dashboard Mockup on Laptop and Phone" class="hero-mockup-img" id="hero-mockup-img" data-cms-key="img_hero_mockup" />
+          <div class="glass-float-card card-1">
+            <i class="bi bi-graph-up-arrow"></i>
+            <div>
+              <h5 data-cms-key="glass_float_1_title">+45% Pendapatan</h5>
+              <p data-cms-key="glass_float_1_desc">Rata-rata kenaikan omset</p>
             </div>
           </div>
-        </div>
-
-        <!-- CARD 3 -->
-        <div class="testimonial-card">
-          <div class="testimonial-content">
-            <div class="quote">❞</div>
-
-            <p class="testimonial-text">
-              Hasil jahitannya rapi banget, sesuai ekspektasi! Pelayanannya juga
-              ramah dan cepat.
-            </p>
-          </div>
-
-          <div class="testimonial-user">
-            <img src="assets/images/user3.jpg" />
-
-            <div class="user-info">
-              <h4>Nabila Putri</h4>
-
-              <div class="stars">★★★★★</div>
+          <div class="glass-float-card card-2">
+            <i class="bi bi-check-circle-fill text-success"></i>
+            <div>
+              <h5 data-cms-key="glass_float_2_title">Sistem Otomatis</h5>
+              <p data-cms-key="glass_float_2_desc">Bebas salah catat pesanan</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ORDER SECTION -->
+    <!-- PAIN POINTS / MANUAL SECTION -->
+    <section class="manual-section">
+      <div class="section-title text-center">
+        <h2>
+          <span data-cms-key="manual_title_main">Masih Mengelola Bisnis Jahit Secara </span>
+          <span data-cms-key="manual_title_span">Manual?</span>
+        </h2>
+        <div class="divider"></div>
+      </div>
+      <div class="manual-grid">
+        <!-- Card 1 -->
+        <div class="manual-card">
+          <div class="manual-icon-box"><i class="bi bi-chat-dots"></i></div>
+          <h3 data-cms-key="manual_card_1_title">Pesanan tercecer di banyak chat</h3>
+          <p data-cms-key="manual_card_1_desc">Sulit melacak status pesanan, detail ukuran, dan riwayat chat pelanggan secara manual.</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="manual-card">
+          <div class="manual-icon-box"><i class="bi bi-folder-x"></i></div>
+          <h3 data-cms-key="manual_card_2_title">Sulit menampilkan portfolio</h3>
+          <p data-cms-key="manual_card_2_desc">Hasil jahitan tidak tersusun rapi, membuat calon pelanggan ragu dengan kualitas jahitan Anda.</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="manual-card">
+          <div class="manual-icon-box"><i class="bi bi-clock-history"></i></div>
+          <h3 data-cms-key="manual_card_3_title">Pencatatan manual memakan waktu</h3>
+          <p data-cms-key="manual_card_3_desc">Buku catatan rentan hilang atau salah tulis ukuran, membuang waktu produksi yang berharga.</p>
+        </div>
+        <!-- Card 4 -->
+        <div class="manual-card">
+          <div class="manual-icon-box"><i class="bi bi-megaphone"></i></div>
+          <h3 data-cms-key="manual_card_4_title">Promosi kurang maksimal</h3>
+          <p data-cms-key="manual_card_4_desc">Jangkauan promosi toko fisik sangat terbatas, bisnis jahit jadi sulit untuk bertumbuh.</p>
+        </div>
+      </div>
+    </section>
 
-    <section class="order-section">
-      <!-- CARA PEMESANAN -->
-      <div class="order-card">
-        <h2>Cara Pemesanan</h2>
+    <!-- FEATURE LIST SECTION (DARK DARK BROWN) -->
+    <section class="features-dark-section" id="fitur">
+      <div class="features-dark-container">
+        <div class="features-dark-header">
+          <span class="badge-accent" data-cms-key="features_section_badge">FITUR UTAMA</span>
+          <h2 data-cms-key="features_section_title">Sew U Hadir Dengan Fitur Lengkap</h2>
+          <p data-cms-key="features_section_subtitle">Semua yang Anda butuhkan untuk mengembangkan bisnis jahit dalam satu platform terintegrasi.</p>
+        </div>
 
-        <div class="order-steps">
-          <!-- STEP 1 -->
-          <div class="step">
-            <div class="step-icon">
-              <i class="bi bi-chat-dots"></i>
-            </div>
-
-            <h4>1. Konsultasi</h4>
-
-            <p>Hubungi kami via WhatsApp untuk konsultasi kebutuhanmu.</p>
+        <div class="features-dark-grid">
+          <!-- Feature 1 -->
+          <div class="feat-dark-card">
+            <div class="feat-dark-icon"><i class="bi bi-laptop"></i></div>
+            <h3 data-cms-key="feature_1_title">Website Toko Instan</h3>
+            <p data-cms-key="feature_1_desc">Buat website profesional untuk brand jahit Anda dalam hitungan menit, tanpa coding sama sekali.</p>
           </div>
-
-          <div class="line"></div>
-
-          <!-- STEP 2 -->
-          <div class="step">
-            <div class="step-icon">
-              <i class="bi bi-rulers"></i>
-            </div>
-
-            <h4>2. Pilih Desain & Bahan</h4>
-
-            <p>Pilih desain, bahan, warna, dan ukuran yang kamu inginkan.</p>
+          <!-- Feature 2 -->
+          <div class="feat-dark-card">
+            <div class="feat-dark-icon"><i class="bi bi-images"></i></div>
+            <h3 data-cms-key="feature_2_title">Portfolio Digital</h3>
+            <p data-cms-key="feature_2_desc">Tampilkan galeri foto hasil jahitan terbaik Anda untuk meyakinkan calon pelanggan baru.</p>
           </div>
-
-          <div class="line"></div>
-
-          <!-- STEP 3 -->
-          <div class="step">
-            <div class="step-icon">
-              <i class="bi bi-tools"></i>
-            </div>
-
-            <h4>3. Proses Jahit</h4>
-
-            <p>Kami akan memproses pesananmu dengan teliti dan profesional.</p>
+          <!-- Feature 3 -->
+          <div class="feat-dark-card">
+            <div class="feat-dark-icon"><i class="bi bi-cart-check"></i></div>
+            <h3 data-cms-key="feature_3_title">Kelola Pesanan</h3>
+            <p data-cms-key="feature_3_desc">Pantau antrean pesanan, status fitting, hingga pembayaran dari satu dashboard terpusat.</p>
           </div>
-
-          <div class="line"></div>
-
-          <!-- STEP 4 -->
-          <div class="step">
-            <div class="step-icon">
-              <i class="bi bi-box"></i>
+          <!-- Feature 4 -->
+          <div class="feat-dark-card">
+            <div class="feat-dark-icon"><i class="bi bi-people"></i></div>
+            <h3 data-cms-key="feature_4_title">Manajemen Pelanggan</h3>
+            <p data-cms-key="feature_4_desc">Simpan riwayat ukuran badan (lingkar dada, pinggang, dll) pelanggan agar jahit berikutnya lebih cepat.</p>
+          </div>
+          <!-- Feature 5 -->
+          <div class="feat-dark-card">
+            <div class="feat-dark-icon">
+              <i class="bi bi-palette"></i>
+              <span class="feat-badge-new">NEW</span>
             </div>
-
-            <h4>4. Pengiriman</h4>
-
-            <p>Pesanan selesai dan siap dikirim ke alamatmu.</p>
+            <h3 data-cms-key="feature_5_title">Smart Outfit Matching</h3>
+            <p data-cms-key="feature_5_desc">Rekomendasikan kombinasi warna atasan dan bawahan yang paling cocok untuk pelanggan Anda.</p>
+          </div>
+          <!-- Feature 6 -->
+          <div class="feat-dark-card">
+            <div class="feat-dark-icon"><i class="bi bi-graph-up"></i></div>
+            <h3 data-cms-key="feature_6_title">Laporan & Analitik</h3>
+            <p data-cms-key="feature_6_desc">Pantau laporan omset bulanan, performa jahit, dan tren produk jahit terpopuler dengan mudah.</p>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- CTA CARD -->
-      <div class="cta-card">
-        <h2>Siap Punya Outfit Impian Kamu?</h2>
+    <!-- DASHBOARD SHOWCASE SECTION -->
+    <section class="dashboard-section" id="demo">
+      <div class="dashboard-container">
+        <!-- Left Text Info -->
+        <div class="dashboard-info">
+          <h2>
+            <span data-cms-key="dashboard_section_title_main">Semua Data Bisnis Anda Dalam </span>
+            <span data-cms-key="dashboard_section_title_span">Satu Dashboard</span>
+          </h2>
+          <p data-cms-key="dashboard_section_subtitle">
+            Pantau pesanan, pelanggan, pendapatan, dan perkembangan bisnis jahit Anda secara real-time dari mana saja dan kapan saja.
+          </p>
+          <ul class="dashboard-list">
+            <li>
+              <div class="list-icon"><i class="bi bi-check2-circle"></i></div>
+              <span data-cms-key="dashboard_benefit_1">Ringkasan bisnis dalam satu tampilan bersih</span>
+            </li>
+            <li>
+              <div class="list-icon"><i class="bi bi-check2-circle"></i></div>
+              <span data-cms-key="dashboard_benefit_2">Laporan pendapatan otomatis dan akurat</span>
+            </li>
+            <li>
+              <div class="list-icon"><i class="bi bi-check2-circle"></i></div>
+              <span data-cms-key="dashboard_benefit_3">Kelola basis data pelanggan dengan riwayat lengkap</span>
+            </li>
+            <li>
+              <div class="list-icon"><i class="bi bi-check2-circle"></i></div>
+              <span data-cms-key="dashboard_benefit_4">Akses multi-device kapan saja, di mana saja</span>
+            </li>
+          </ul>
+          
+          <a href="#signup" class="btn-primary inline-btn" id="btn-dashboard-start">
+            <span data-cms-key="btn_dashboard_start">Mulai Sekarang</span>
+          </a>
+        </div>
 
-        <p>Yuk wujudkan outfit terbaikmu bersama Sew U sekarang!</p>
+        <!-- Right Dashboard CSS Mockup -->
+        <div class="dashboard-mockup-card">
+          <!-- Mockup Window Header -->
+          <div class="mockup-header">
+            <div class="mockup-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="mockup-address-bar">admin.sewu.com/dashboard</div>
+          </div>
+          
+          <!-- Mockup App Layout -->
+          <div class="mockup-app">
+            <!-- Sidebar -->
+            <aside class="mockup-sidebar">
+              <div class="sidebar-logo">
+                ✂ <span>Sew U</span>
+              </div>
+              <ul class="sidebar-menu">
+                <li class="active"><i class="bi bi-grid-1x2"></i> Beranda</li>
+                <li><i class="bi bi-file-earmark-text"></i> Pesanan</li>
+                <li><i class="bi bi-layers"></i> Layanan</li>
+                <li><i class="bi bi-images"></i> Portfolio</li>
+                <li><i class="bi bi-people"></i> Pelanggan</li>
+                <li><i class="bi bi-tag"></i> Promosi</li>
+                <li><i class="bi bi-graph-up"></i> Laporan</li>
+                <li><i class="bi bi-gear"></i> Pengaturan</li>
+              </ul>
+            </aside>
 
-        <a href="#" class="cta-btn"> Pesan Sekarang → </a>
+            <!-- Main Content -->
+            <main class="mockup-main">
+              <!-- Top Navbar in Mockup -->
+              <header class="mockup-top-nav">
+                <div class="mockup-welcome">
+                  <h3>Selamat datang, Melati Tailor 👋</h3>
+                  <p>Kelola bisnis jahit Anda dengan mudah.</p>
+                </div>
+                <div class="mockup-user-bar">
+                  <div class="notification-badge"><i class="bi bi-bell"></i><span></span></div>
+                  <img src="asset/image/melati_sari.jpg" alt="User Profile" class="mockup-avatar" data-cms-key="img_testimoni_user_avatar" />
+                </div>
+              </header>
+
+              <!-- Widgets Grid -->
+              <div class="mockup-widgets">
+                <div class="m-widget-card">
+                  <span class="m-widget-title">Total Pesanan</span>
+                  <div class="m-widget-body">
+                    <h3>128</h3>
+                    <span class="trend-up"><i class="bi bi-arrow-up-short"></i> +10% <small>bulan lalu</small></span>
+                  </div>
+                </div>
+                <div class="m-widget-card">
+                  <span class="m-widget-title">Pesanan Baru</span>
+                  <div class="m-widget-body">
+                    <h3>16</h3>
+                    <span class="trend-up"><i class="bi bi-arrow-up-short"></i> +22% <small>kemarin</small></span>
+                  </div>
+                </div>
+                <div class="m-widget-card">
+                  <span class="m-widget-title">Pendapatan</span>
+                  <div class="m-widget-body">
+                    <h3>Rp 12.750K</h3>
+                    <span class="trend-up"><i class="bi bi-arrow-up-short"></i> +15% <small>bulan lalu</small></span>
+                  </div>
+                </div>
+                <div class="m-widget-card">
+                  <span class="m-widget-title">Pelanggan</span>
+                  <div class="m-widget-body">
+                    <h3>362</h3>
+                    <span class="trend-up"><i class="bi bi-arrow-up-short"></i> +21% <small>bulan lalu</small></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Two Column Layout in Mockup -->
+              <div class="mockup-cols">
+                <!-- Recent Orders -->
+                <div class="m-col-card left-col">
+                  <div class="m-col-header">
+                    <h4>Pesanan Masuk</h4>
+                    <a href="#" class="view-all-link">Lihat Semua</a>
+                  </div>
+                  <ul class="m-order-list">
+                    <li>
+                      <div class="client-avatar">DL</div>
+                      <div class="order-detail">
+                        <h5>Dewi Lestari</h5>
+                        <p>Dress Pesta</p>
+                      </div>
+                      <div class="order-meta">
+                        <span class="order-price">Rp 750.000</span>
+                        <span class="badge badge-new">Baru</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="client-avatar">RK</div>
+                      <div class="order-detail">
+                        <h5>Rina Kartika</h5>
+                        <p>Kebaya Modern</p>
+                      </div>
+                      <div class="order-meta">
+                        <span class="order-price">Rp 850.000</span>
+                        <span class="badge badge-process">Proses</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="client-avatar">SA</div>
+                      <div class="order-detail">
+                        <h5>Siti Aisyah</h5>
+                        <p>Seragam Sekolah</p>
+                      </div>
+                      <div class="order-meta">
+                        <span class="order-price">Rp 350.000</span>
+                        <span class="badge badge-done">Selesai</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Mini Chart -->
+                <div class="m-col-card right-col">
+                  <div class="m-col-header">
+                    <h4>Pendapatan</h4>
+                    <span class="chart-legend">7 Hari Terakhir</span>
+                  </div>
+                  <div class="m-chart-bars">
+                    <div class="bar-col"><div class="bar-value" style="height: 40%;"></div><span>23 Mei</span></div>
+                    <div class="bar-col"><div class="bar-value" style="height: 55%;"></div><span>24 Mei</span></div>
+                    <div class="bar-col"><div class="bar-value" style="height: 75%;"></div><span>25 Mei</span></div>
+                    <div class="bar-col"><div class="bar-value" style="height: 90%;"></div><span>26 Mei</span></div>
+                    <div class="bar-col"><div class="bar-value" style="height: 60%;"></div><span>27 Mei</span></div>
+                    <div class="bar-col"><div class="bar-value" style="height: 80%;"></div><span>28 Mei</span></div>
+                    <div class="bar-col"><div class="bar-value" style="height: 95%;"></div><span>29 Mei</span></div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE DEMO / SMART OUTFIT MATCHING -->
+    <section class="live-demo-section">
+      <div class="demo-bg-decoration"></div>
+      <div class="demo-container">
+        <div class="demo-header text-center">
+          <span class="badge-accent">DEMO INTERAKTIF</span>
+          <h2>Coba Fitur Smart Outfit Matching</h2>
+          <p>Simulasi fitur pintar rekomendasi pakaian yang bisa dicoba langsung oleh pelanggan di website toko online Anda.</p>
+        </div>
+
+        <div class="smart-card" id="smart-matching-tool">
+          <div class="smart-left">
+            <h2>Smart Outfit Matching <span>✨</span></h2>
+            <p class="smart-desc">
+              Pilih warna atasan dan warna bawahan untuk mendapatkan rekomendasi kombinasi outfit jahit terbaik dari sistem cerdas Sew U!
+            </p>
+
+            <!-- WARNA ATASAN -->
+            <div class="color-group">
+              <h4>Pilih Warna Atasan</h4>
+              <div class="colors" id="top-colors">
+                <span class="color black active" data-color="Hitam" style="background-color: #000000;"></span>
+                <span class="color white" data-color="Putih" style="background-color: #ffffff; border: 1px solid #ddd;"></span>
+                <span class="color cream" data-color="Krem" style="background-color: #ddd1c1;"></span>
+                <span class="color brown" data-color="Cokelat" style="background-color: #7a4b28;"></span>
+                <span class="color blue" data-color="Biru" style="background-color: #31496f;"></span>
+                <span class="color olive" data-color="Olive" style="background-color: #777334;"></span>
+              </div>
+            </div>
+
+            <!-- WARNA BAWAHAN -->
+            <div class="color-group">
+              <h4>Pilih Warna Bawahan</h4>
+              <div class="colors" id="bottom-colors">
+                <span class="color soft" data-color="Soft Cream" style="background-color: #f5ede3;"></span>
+                <span class="color beige active" data-color="Beige" style="background-color: #e5d6c1;"></span>
+                <span class="color dark-brown" data-color="Cokelat Tua" style="background-color: #6e4325;"></span>
+                <span class="color gray" data-color="Abu-abu" style="background-color: #d3d3d3;"></span>
+                <span class="color dark" data-color="Hitam" style="background-color: #222222;"></span>
+                <span class="color navy" data-color="Navy" style="background-color: #1c2b42;"></span>
+              </div>
+            </div>
+
+            <button class="smart-btn" id="btn-matching-calculate">Lihat Rekomendasi →</button>
+          </div>
+
+          <!-- RIGHT CARD -->
+          <div class="recommend-card">
+            <h4>Rekomendasi Untukmu</h4>
+            
+            <!-- Dynamic Preview Box using HTML/CSS instead of broken static image -->
+            <div class="outfit-preview-box">
+              <div class="preview-layer top-preview" id="top-preview-layer" style="background-color: #000000;">
+                <span class="preview-text" id="top-preview-text">Atasan Hitam</span>
+              </div>
+              <div class="preview-layer bottom-preview" id="bottom-preview-layer" style="background-color: #e5d6c1;">
+                <span class="preview-text" id="bottom-preview-text">Bawahan Beige</span>
+              </div>
+            </div>
+
+            <!-- BAGIAN BAWAH -->
+            <div class="recommend-bottom">
+              <div class="mini-colors">
+                <span class="mini" id="mini-top" style="background-color: #000000;"></span>
+                <span class="mini" id="mini-bottom" style="background-color: #e5d6c1;"></span>
+              </div>
+              <h5 id="recommend-title">Hitam & Beige</h5>
+              <p id="recommend-description">Perpaduan klasik yang memberikan kesan clean, modern, profesional, dan sangat elegan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section class="how-it-works">
+      <div class="section-title text-center">
+        <h2>Cara Kerja <span>Sew U</span></h2>
+        <p>Langkah mudah mendigitalisasi usaha jahit Anda dalam waktu singkat.</p>
+        <div class="divider"></div>
+      </div>
+      
+      <div class="steps-container">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-icon-circle"><i class="bi bi-person-plus"></i></div>
+          <h3>Daftar Akun</h3>
+          <p>Buat akun Sew U secara gratis dengan mudah dan cepat melalui email.</p>
+        </div>
+        
+        <div class="step-arrow"><i class="bi bi-chevron-right"></i></div>
+        
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-icon-circle"><i class="bi bi-shop-window"></i></div>
+          <h3>Buat Profil Bisnis</h3>
+          <p>Lengkapi informasi usaha jahit, jam kerja, lokasi toko jahit, dan kontak Anda.</p>
+        </div>
+        
+        <div class="step-arrow"><i class="bi bi-chevron-right"></i></div>
+        
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-icon-circle"><i class="bi bi-cloud-upload"></i></div>
+          <h3>Upload Portofolio</h3>
+          <p>Tambahkan layanan jahit dan hasil jahitan terbaik Anda di galeri portofolio.</p>
+        </div>
+        
+        <div class="step-arrow"><i class="bi bi-chevron-right"></i></div>
+        
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-icon-circle"><i class="bi bi-share"></i></div>
+          <h3>Bagikan Link Toko</h3>
+          <p>Sebarkan link toko online Anda ke sosial media dan dapatkan pesanan lebih banyak!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING & TESTIMONIALS SECTION -->
+    <section class="pricing-testimonial-section" id="harga">
+      <div class="section-container">
+        <!-- Left: Pricing Plans -->
+        <div class="pricing-wrapper">
+          <div class="pricing-header">
+            <h2 data-cms-key="pricing_section_title">Paket Fleksibel Untuk Anda</h2>
+            <p data-cms-key="pricing_section_subtitle">Pilih paket sesuai dengan skala kebutuhan usaha jahit Anda.</p>
+          </div>
+
+          <div class="pricing-cards">
+            <!-- Free Plan -->
+            <div class="price-card">
+              <span class="price-plan-name" data-cms-key="price_1_name">FREE</span>
+              <div class="price-amount">
+                <h3 data-cms-key="price_1_amount">Rp0</h3>
+                <span>/bulan</span>
+              </div>
+              <ul class="price-features">
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_1_feature_1">Website Toko Dasar</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_1_feature_2">Upload 10 Portfolio</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_1_feature_3">Kelola Pesanan Dasar</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_1_feature_4">Support Email</span></li>
+              </ul>
+              <a href="#signup" class="btn-price-outline" data-cms-key="btn_price_1">Mulai Gratis</a>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="price-card popular">
+              <div class="popular-ribbon">Paling Populer</div>
+              <span class="price-plan-name" data-cms-key="price_2_name">PRO</span>
+              <div class="price-amount">
+                <h3 data-cms-key="price_2_amount">Rp49.000</h3>
+                <span>/bulan</span>
+              </div>
+              <ul class="price-features">
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_2_feature_1">Semua fitur FREE</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_2_feature_2">Unlimited Portfolio</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_2_feature_3">Dashboard & Laporan Lengkap</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_2_feature_4">Domain Custom</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_2_feature_5">Priority Support</span></li>
+              </ul>
+              <a href="#signup" class="btn-price-solid" data-cms-key="btn_price_2">Pilih Paket Pro</a>
+            </div>
+
+            <!-- Business Plan -->
+            <div class="price-card">
+              <span class="price-plan-name" data-cms-key="price_3_name">BUSINESS</span>
+              <div class="price-amount">
+                <h3 data-cms-key="price_3_amount">Rp99.000</h3>
+                <span>/bulan</span>
+              </div>
+              <ul class="price-features">
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_3_feature_1">Semua fitur PRO</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_3_feature_2">Multi Admin (3 User)</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_3_feature_3">Integrasi WhatsApp Business</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_3_feature_4">Fitur Promosi & Diskon</span></li>
+                <li><i class="bi bi-check-lg"></i> <span data-cms-key="price_3_feature_5">Support Prioritas 24/7</span></li>
+              </ul>
+              <a href="#signup" class="btn-price-outline" data-cms-key="btn_price_3">Pilih Paket Business</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Testimonial -->
+        <div class="single-testimonial-wrapper" id="testimoni">
+          <div class="testimonial-header-info">
+            <h2 data-cms-key="testimoni_section_title">Dipercaya Oleh Penjahit di Seluruh Indonesia</h2>
+            <p data-cms-key="testimoni_section_subtitle">Cerita sukses penjahit yang bertransformasi bersama Sew U.</p>
+          </div>
+
+          <div class="testimonial-card-saas">
+            <div class="quote-icon-large">“</div>
+            <p class="testimonial-quote-text" data-cms-key="testimoni_quote_text">
+              Semenjak pakai Sew U, pengelolaan pesanan pelanggan jadi jauh lebih teratur. Pelanggan juga merasa lebih percaya karena bisa melihat riwayat ukuran badan dan portfolio jahitan kami dengan mudah di link toko kami sendiri.
+            </p>
+            <div class="testimonial-user-info">
+              <img src="asset/image/melati_sari.jpg" alt="Melati Sari" class="testimonial-user-photo" id="testimoni-photo" data-cms-key="img_testimoni_user" />
+              <div class="testimonial-user-meta">
+                <h4 data-cms-key="testimoni_user_name">Melati Sari</h4>
+                <span data-cms-key="testimoni_user_role">Owner Melati Tailor, Bandung</span>
+                <div class="user-stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Testimonial Slider Dots -->
+          <div class="testimonial-dots">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-banner-section">
+      <div class="cta-image-overlay">
+        <img src="asset/image/cta_sewing_machine.jpg" alt="Sewing Machine Background" class="cta-bg-img" data-cms-key="img_cta_bg" />
+      </div>
+      <div class="cta-banner-content">
+        <h2 data-cms-key="cta_title">Siap Mengembangkan Bisnis Jahit Anda?</h2>
+        <p data-cms-key="cta_subtitle">Bergabunglah dengan ribuan penjahit yang telah merasakan kemudahan mengelola bisnis jahit secara modern dengan Sew U.</p>
+        
+        <div class="cta-action-buttons">
+          <a href="#signup" class="btn-primary" id="btn-cta-start">
+            <span data-cms-key="btn_cta_start">Mulai Gratis Sekarang</span>
+          </a>
+          <a href="#demo" class="btn-outline-white" id="btn-cta-demo">
+            <span data-cms-key="btn_cta_demo">Lihat Demo</span> <i class="bi bi-arrow-right-short"></i>
+          </a>
+        </div>
+        
+        <div class="cta-badges">
+          <span><i class="bi bi-patch-check"></i> <span data-cms-key="cta_badge_1">Gratis 14 Hari Tanpa Kartu Kredit</span></span>
+          <span><i class="bi bi-patch-check"></i> <span data-cms-key="cta_badge_2">Bisa Digunakan Tanpa Coding</span></span>
+          <span><i class="bi bi-patch-check"></i> <span data-cms-key="cta_badge_3">Aman & Terpercaya Data Terlindungi</span></span>
+        </div>
       </div>
     </section>
 
     <!-- FOOTER -->
-
-    <footer class="footer">
+    <footer class="footer" id="kontak">
       <div class="footer-container">
-        <!-- LOGO -->
+        <!-- BRAND INFO -->
         <div class="footer-brand">
           <div class="footer-logo">
-            <div class="logo">
-          <div class="logo-icon">✂</div>
+            <div class="logo-icon">✂</div>
+            <h2>Sew U</h2>
           </div>
-
-            <div>
-              <h2>Sew U</h2>
-              <span>Stitch Your Style</span>
-            </div>
-          </div>
-
-          <p>
-            Sew U adalah jasa jahit modern yang mengutamakan kualitas,
-            kenyamanan, dan kepuasan pelanggan.
+          <p class="footer-desc" data-cms-key="footer_desc">
+            Platform digital terintegrasi untuk membantu penjahit di Indonesia mengembangkan bisnis, mengelola toko, dan menjangkau lebih banyak pelanggan secara daring.
           </p>
-
-          <!-- SOCIAL -->
-          <div class="social-icons">
-            <a href="#"><i class="bi bi-instagram"></i></a>
-
-            <a href="#"><i class="bi bi-whatsapp"></i></a>
-
-            <a href="#"><i class="bi bi-tiktok"></i></a>
-
-            <a href="#"><i class="bi bi-bag"></i></a>
+          <div class="footer-socials">
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://wa.me/6281234567890" target="_blank" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+            <a href="https://tiktok.com" target="_blank" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+            <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
           </div>
         </div>
 
-        <!-- MENU -->
+        <!-- FOOTER LINKS COLUMN 1 -->
         <div class="footer-links">
           <h4>Menu</h4>
-
-          <a href="#">Beranda</a>
-          <a href="#">Tentang Kami</a>
-          <a href="#">Layanan</a>
-          <a href="#">Portfolio</a>
-          <a href="#">Smart Match</a>
+          <a href="#beranda">Beranda</a>
+          <a href="#fitur">Fitur</a>
+          <a href="#harga">Harga</a>
+          <a href="#demo">Demo</a>
+          <a href="#testimoni">Testimoni</a>
         </div>
 
-        <!-- LAYANAN -->
+        <!-- FOOTER LINKS COLUMN 2 -->
         <div class="footer-links">
           <h4>Layanan</h4>
-
-          <a href="#">Jahit Custom Pria</a>
-          <a href="#">Jahit Custom Wanita</a>
-          <a href="#">Permak Pakaian</a>
-          <a href="#">Jahit Seragam</a>
-          <a href="#">Konsultasi Desain</a>
+          <a href="#">Website Toko</a>
+          <a href="#">Kelola Pesanan</a>
+          <a href="#">Portofolio Digital</a>
+          <a href="#">Smart Match</a>
+          <a href="#">Laporan Bisnis</a>
         </div>
 
-        <!-- INFORMASI -->
+        <!-- FOOTER LINKS COLUMN 3 -->
         <div class="footer-links">
           <h4>Informasi</h4>
-
           <a href="#">Tentang Kami</a>
-          <a href="#">Cara Pemesanan</a>
-          <a href="#">Pengiriman</a>
+          <a href="#">Cara Kerja</a>
+          <a href="#">FAQ</a>
           <a href="#">Kebijakan Privasi</a>
           <a href="#">Syarat & Ketentuan</a>
         </div>
 
-        <!-- CONTACT -->
+        <!-- FOOTER CONTACT -->
         <div class="footer-contact">
           <h4>Hubungi Kami</h4>
-
           <div class="contact-item">
-            <i class="bi bi-whatsapp"></i>
-            <span>0812-3456-7890</span>
+            <i class="bi bi-telephone-fill"></i>
+            <span data-cms-key="contact_phone">0812-3456-7890</span>
           </div>
-
+          <div class="contact-item">
+            <i class="bi bi-envelope-fill"></i>
+            <span data-cms-key="contact_email">hello@sewu.com</span>
+          </div>
           <div class="contact-item">
             <i class="bi bi-instagram"></i>
-            <span>@sew.u_official</span>
+            <span data-cms-key="contact_instagram">@sew.u_official</span>
           </div>
-
-          <div class="contact-item">
-            <i class="bi bi-shop"></i>
-            <span>Sew U Official</span>
-          </div>
-
           <div class="contact-item">
             <i class="bi bi-geo-alt-fill"></i>
-            <span>Jl. Fashion No. 123, Bandung</span>
+            <span data-cms-key="contact_address">Jl. Fashion No. 123, Bandung</span>
           </div>
         </div>
       </div>
+      
+      <div class="footer-bottom text-center">
+        <p>&copy; 2026 Sew U. All rights reserved. | <a href="admin.html" target="_blank" style="color: var(--color-accent); font-weight: 600;"><i class="bi bi-shield-lock-fill"></i> Admin Panel</a></p>
+      </div>
     </footer>
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
   </body>
 </html>
