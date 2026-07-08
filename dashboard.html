@@ -584,34 +584,129 @@
         opacity: 1;
       }
 
+      /* Mobile top bar styling */
+      .db-mobile-bar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #ffffff;
+        border-bottom: 1px solid rgba(234, 223, 206, 0.6);
+        padding: 0 20px;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      }
+
+      .db-menu-toggle-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #1a120b;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+      }
+
+      .db-menu-toggle-btn:hover {
+        background-color: #f4efea;
+      }
+
+      .db-sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background-color: rgba(26, 18, 11, 0.4);
+        backdrop-filter: blur(2px);
+        z-index: 998;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .db-sidebar-overlay.show-overlay {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
       /* Responsive style */
-      @media (max-width: 900px) {
-        .db-layout {
+      @media (max-width: 768px) {
+        body.db-body {
+          padding-top: 60px;
           flex-direction: column;
         }
+
+        .db-mobile-bar {
+          display: flex;
+        }
+
+        .db-sidebar-overlay {
+          display: block;
+        }
+
         .db-sidebar {
-          width: 100%;
-          border-right: none;
-          border-bottom: 1px solid rgba(234, 223, 206, 0.6);
+          position: fixed;
+          top: 60px;
+          left: -260px;
+          width: 250px;
+          height: calc(100vh - 60px);
+          z-index: 999;
+          transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 4px 0 15px rgba(46, 34, 24, 0.05);
+          padding: 20px;
+          border-right: 1px solid rgba(234, 223, 206, 0.6);
         }
-        .db-menu {
-          flex-direction: row;
-          flex-wrap: wrap;
-          margin-top: 14px;
+
+        .db-sidebar.show-sidebar {
+          left: 0;
         }
+
+        .db-content {
+          padding: 20px;
+          gap: 20px;
+        }
+
+        .db-header {
+          display: none; /* Hidden on mobile */
+        }
+
         .db-widgets {
           grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
         }
+
         .db-grid-cols {
           grid-template-columns: 1fr;
+          gap: 20px;
         }
+
         .portfolio-grid-db {
           grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+
+        .db-form-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
         }
       }
 
-      @media (max-width: 600px) {
+      @media (max-width: 480px) {
         .db-widgets {
+          grid-template-columns: 1fr;
+        }
+        
+        .portfolio-grid-db {
           grid-template-columns: 1fr;
         }
       }
@@ -619,6 +714,23 @@
   </head>
 
   <body class="db-body">
+    <!-- MOBILE TOP BAR -->
+    <div class="db-mobile-bar">
+      <button class="db-menu-toggle-btn" id="db-menu-toggle-btn">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="db-logo" style="margin: 0; border: none; padding: 0; font-size: 20px;">
+        <span class="logo-icon">✂</span>
+        <span>Sew U</span>
+      </div>
+      <div class="db-user-bar">
+        <img src="asset/image/melati_sari.jpg" alt="Melati Sari" class="db-avatar" style="width: 32px; height: 32px; border: 1px solid #eadfce;" id="mobile-navbar-avatar" />
+      </div>
+    </div>
+    
+    <!-- MOBILE SIDEBAR OVERLAY -->
+    <div class="db-sidebar-overlay" id="db-sidebar-overlay"></div>
+
     <div class="db-layout">
       <!-- SIDEBAR -->
       <aside class="db-sidebar">
@@ -1036,6 +1148,9 @@
         // 1. Sidebar tab switching logic
         const menuItems = document.querySelectorAll(".db-menu li");
         const tabPanels = document.querySelectorAll(".tab-panel");
+        const sidebar = document.querySelector(".db-sidebar");
+        const overlay = document.getElementById("db-sidebar-overlay");
+        const menuToggleIcon = document.querySelector("#db-menu-toggle-btn i");
 
         menuItems.forEach(item => {
           item.addEventListener("click", () => {
@@ -1049,8 +1164,37 @@
                 panel.classList.add("active");
               }
             });
+
+            // Close sidebar drawer on mobile after selection
+            if (sidebar && sidebar.classList.contains("show-sidebar")) {
+              sidebar.classList.remove("show-sidebar");
+              if (overlay) overlay.classList.remove("show-overlay");
+              if (menuToggleIcon) menuToggleIcon.className = "bi bi-list";
+            }
           });
         });
+
+        // Hamburger Toggling logic
+        const toggleBtn = document.getElementById("db-menu-toggle-btn");
+        if (toggleBtn && sidebar && overlay) {
+          toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("show-sidebar");
+            overlay.classList.toggle("show-overlay");
+            
+            if (sidebar.classList.contains("show-sidebar")) {
+              if (menuToggleIcon) menuToggleIcon.className = "bi bi-x-lg";
+            } else {
+              if (menuToggleIcon) menuToggleIcon.className = "bi bi-list";
+            }
+          });
+
+          // Click overlay to close
+          overlay.addEventListener("click", () => {
+            sidebar.classList.remove("show-sidebar");
+            overlay.classList.remove("show-overlay");
+            if (menuToggleIcon) menuToggleIcon.className = "bi bi-list";
+          });
+        }
 
         // 2. Open / Close Modal logic
         const orderModal = document.getElementById("modal-add-order");
@@ -1158,7 +1302,10 @@
           if (sidebarTitle) sidebarTitle.textContent = pageData.logo_text;
         }
         if (pageData.img_testimoni_user) {
-          document.getElementById("navbar-avatar").src = pageData.img_testimoni_user;
+          const deskAvatar = document.getElementById("navbar-avatar");
+          const mobAvatar = document.getElementById("mobile-navbar-avatar");
+          if (deskAvatar) deskAvatar.src = pageData.img_testimoni_user;
+          if (mobAvatar) mobAvatar.src = pageData.img_testimoni_user;
         }
         if (pageData.testimoni_user_name) {
           document.getElementById("welcome-title").textContent = `Selamat datang, ${pageData.testimoni_user_name} 👋`;
