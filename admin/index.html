@@ -47,7 +47,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        font-family: 'Playfair Display', serif;
+        font-family: 'Poppins', sans-serif;
         font-size: 24px;
         font-weight: 700;
         border-bottom: 1px solid rgba(244, 239, 234, 0.1);
@@ -116,7 +116,7 @@
       }
       
       .admin-header h1 {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Poppins', sans-serif;
         font-size: 32px;
         color: #1a120b;
       }
@@ -189,6 +189,17 @@
         margin-bottom: 30px;
       }
       
+      .form-grid.security-grid {
+        background-color: #fdf6f6;
+        border: 1px solid rgba(217, 83, 79, 0.2);
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      
       .form-group {
         display: flex;
         flex-direction: column;
@@ -208,6 +219,7 @@
       }
       
       .form-group input[type="text"],
+      .form-group input[type="password"],
       .form-group textarea {
         font-family: 'Poppins', sans-serif;
         font-size: 13px;
@@ -221,6 +233,7 @@
       }
       
       .form-group input[type="text"]:focus,
+      .form-group input[type="password"]:focus,
       .form-group textarea:focus {
         border-color: #9d7b58;
         background-color: #ffffff;
@@ -371,9 +384,17 @@
         opacity: 1;
       }
       
+      .admin-toast.toast-error {
+        background-color: #d9534f;
+      }
+      
       .admin-toast i {
         color: #9d7b58;
         font-size: 18px;
+      }
+      
+      .admin-toast.toast-error i {
+        color: #ffffff;
       }
       
       /* Dashboard summary info card */
@@ -390,7 +411,7 @@
       }
       
       .summary-text h2 {
-        font-family: 'Playfair Display', serif;
+        font-family: 'Poppins', sans-serif;
         font-size: 28px;
         margin-bottom: 8px;
       }
@@ -464,7 +485,7 @@
         </div>
         <div class="admin-sidebar-footer">
           <p>© 2026 Sew U CMS Panel</p>
-          <p>Versi 1.0 (No-Code Engine)</p>
+          <p>Versi 1.2 (Vercel Ready)</p>
         </div>
       </aside>
 
@@ -473,7 +494,7 @@
         <!-- HEADER -->
         <header class="admin-header">
           <div>
-            <h1>Dashboard Pengelola Konten <span>CMS Lokal</span></h1>
+            <h1>Dashboard Pengelola Konten <span>CMS Server</span></h1>
             <p>Ubah tampilan tulisan dan gambar website Anda secara langsung.</p>
           </div>
           <div class="admin-actions-top">
@@ -486,9 +507,29 @@
           <div class="summary-card">
             <div class="summary-text">
               <h2>Selamat Datang, Melati Tailor</h2>
-              <p>Melalui panel kontrol ini, Anda dapat merubah segala teks dan aset gambar pada landing page Sew U secara langsung. Klik tombol simpan untuk melihat perubahannya.</p>
+              <p>Melalui panel kontrol ini, Anda dapat merubah segala teks dan aset gambar pada landing page Sew U secara langsung. Konten akan disimpan permanen di server hosting Dewabiz Anda.</p>
             </div>
             <div class="summary-icon"><i class="bi bi-pencil-square"></i></div>
+          </div>
+
+          <!-- NO-CODE COMPILER FOR VERCEL (NEW) -->
+          <div class="system-backup-section" style="margin-top: 24px; border: 2px solid #9d7b58;">
+            <h3 class="panel-section-title" style="border-left-color: #384526;">Ekspor Untuk Hosting Vercel (Statis)</h3>
+            <p style="font-size: 13px; color: #675d53; margin-bottom: 12px;">Untuk hosting Vercel, unduh file `index.html` terbaru yang telah terkompilasi dengan perubahan Anda di bawah ini, lalu timpa file `index.html` lokal Anda sebelum melakukan deployment/push.</p>
+            <div class="backup-buttons">
+              <button class="btn-admin-save" id="btn-download-html" style="background-color: #384526; display: inline-flex; align-items: center; gap: 8px;"><i class="bi bi-file-earmark-arrow-down-fill"></i> Unduh index.html Terupdate</button>
+            </div>
+          </div>
+
+          <!-- SECURITY & PASSWORD SECTION (CRITICAL FOR LIVE HOSTINGS) -->
+          <div class="security-grid" style="margin-top: 24px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label style="color: #d9534f; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+                <i class="bi bi-lock-fill"></i> Kredensial Keamanan Server (Password Admin)
+              </label>
+              <p style="font-size: 11px; color: #7f6060; margin-bottom: 8px;">Dibutuhkan untuk menyimpan perubahan ke hosting Dewabiz. Password default: <strong>sewuadmin123</strong>.</p>
+              <input type="password" id="admin_password_input" placeholder="Masukkan password admin di sini..." style="border: 2px solid #d9534f; max-width: 400px;" />
+            </div>
           </div>
           
           <div class="system-backup-section" style="margin-top: 24px;">
@@ -1108,7 +1149,7 @@
           });
         });
         
-        // Initialize CMS content in inputs
+        // Initialize CMS content in inputs from server
         initAdminCMS();
         
         // Setup image inputs to convert to base64 on file load
@@ -1117,6 +1158,7 @@
         // System operations
         document.getElementById("btn-reset-system").addEventListener("click", resetToDefaults);
         document.getElementById("btn-export-config").addEventListener("click", exportCMSConfig);
+        document.getElementById("btn-download-html").addEventListener("click", downloadCompiledHTML);
         document.getElementById("btn-import-trigger").addEventListener("click", () => {
           document.getElementById("input-import-config").click();
         });
@@ -1230,21 +1272,32 @@
         contact_address: "Jl. Fashion No. 123, Bandung"
       };
 
-      // Load data from localStorage or fallback, and prefill forms
-      function initAdminCMS() {
+      // Load data from sewu_config.json on server OR fallback to localStorage OR fallback to defaults
+      async function initAdminCMS() {
         let storedData = localStorage.getItem("sewu_page_data");
         let pageData = {};
         
-        if (storedData) {
-          try {
-            pageData = JSON.parse(storedData);
-          } catch(e) {
-            console.error("Error parsing JSON, loading defaults", e);
-            pageData = {...defaultPageData};
+        try {
+          const response = await fetch('sewu_config.json');
+          if (response.ok) {
+            pageData = await response.json();
+            localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
+            console.log("CMS Admin: Loaded config from server");
+          } else {
+            throw new Error("sewu_config.json not found on server");
           }
-        } else {
-          pageData = {...defaultPageData};
-          localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
+        } catch (e) {
+          console.warn("CMS Admin: Failed to load from server. Using local storage.", e);
+          if (storedData) {
+            try {
+              pageData = JSON.parse(storedData);
+            } catch(err) {
+              pageData = {...defaultPageData};
+            }
+          } else {
+            pageData = {...defaultPageData};
+            localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
+          }
         }
 
         // Fill all form inputs that match keys
@@ -1264,10 +1317,21 @@
         });
       }
 
-      // Save Form inputs into localStorage
-      function saveCMSData() {
-        let storedData = localStorage.getItem("sewu_page_data");
-        let pageData = storedData ? JSON.parse(storedData) : {...defaultPageData};
+      // Save Form inputs into localStorage AND send to save_config.php on the server
+      async function saveCMSData() {
+        const passwordInput = document.getElementById("admin_password_input").value.trim();
+        
+        if (!passwordInput) {
+          showToast("PERINGATAN: Harap masukkan password admin terlebih dahulu!", true);
+          // Highlight password input
+          document.getElementById("admin_password_input").focus();
+          document.getElementById("admin_password_input").style.borderColor = "red";
+          return;
+        }
+        
+        document.getElementById("admin_password_input").style.borderColor = "#eadfce";
+        
+        let pageData = {...defaultPageData};
         
         // Loop inputs and update keys
         Object.keys(defaultPageData).forEach(key => {
@@ -1285,9 +1349,95 @@
             }
           }
         });
+
+        // Add password input payload to authenticate
+        const payload = {
+          ...pageData,
+          admin_password_input: passwordInput
+        };
         
+        // 1. Save to local storage (safety backup)
         localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
-        showToast("Perubahan Berhasil Disimpan!");
+        
+        // 2. Send to save_config.php on server
+        try {
+          const response = await fetch('save_config.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+          
+          const result = await response.json();
+          
+          if (response.ok && result.status === "success") {
+            showToast("Perubahan Berhasil Simpan di Server & Lokal!");
+          } else {
+            showToast("ERROR: " + (result.message || "Gagal menyimpan di server"), true);
+          }
+        } catch(error) {
+          console.error("Connection failed", error);
+          showToast("Tersimpan di Lokal Browser (Server Luring/Offline).");
+        }
+      }
+
+      // Compile and download the updated index.html for Vercel
+      async function downloadCompiledHTML() {
+        try {
+          const response = await fetch('index.html');
+          if (!response.ok) throw new Error("Gagal membaca template index.html di server.");
+          const htmlContent = await response.text();
+
+          // Get edited page data
+          let storedData = localStorage.getItem("sewu_page_data");
+          if (!storedData) {
+            alert("Belum ada perubahan yang tersimpan. Silakan edit dan simpan perubahan terlebih dahulu.");
+            return;
+          }
+          const pageData = JSON.parse(storedData);
+
+          // Use DOMParser to inject values safely
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(htmlContent, 'text/html');
+
+          // Inject keys
+          const cmsElements = doc.querySelectorAll("[data-cms-key]");
+          cmsElements.forEach(element => {
+            const key = element.getAttribute("data-cms-key");
+            const val = pageData[key];
+
+            if (val !== undefined && val !== null) {
+              if (element.tagName === "IMG") {
+                element.setAttribute("src", val);
+              } else if (key === "meta_title") {
+                doc.title = val;
+              } else if (key === "meta_description") {
+                const metaDesc = doc.querySelector('meta[name="description"]');
+                if (metaDesc) metaDesc.setAttribute("content", val);
+              } else {
+                element.textContent = val;
+              }
+            }
+          });
+
+          // Serialize back to HTML string
+          const updatedHTML = "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
+
+          // Trigger download
+          const blob = new Blob([updatedHTML], { type: "text/html;charset=utf-8" });
+          const downloadAnchor = document.createElement('a');
+          downloadAnchor.href = URL.createObjectURL(blob);
+          downloadAnchor.download = "index.html";
+          document.body.appendChild(downloadAnchor);
+          downloadAnchor.click();
+          downloadAnchor.remove();
+
+          showToast("index.html terupdate berhasil diunduh!");
+        } catch (e) {
+          console.error("Gagal mengompilasi HTML", e);
+          alert("Gagal mengompilasi file index.html: " + e.message);
+        }
       }
 
       // Handle Image uploads and convert to Base64
@@ -1312,23 +1462,62 @@
       }
 
       // Reset to defaults
-      function resetToDefaults() {
+      async function resetToDefaults() {
         if (confirm("Apakah Anda yakin ingin menghapus semua kustomisasi dan mengembalikan tampilan asli website?")) {
+          const passwordInput = document.getElementById("admin_password_input").value.trim();
+          
+          if (!passwordInput) {
+            alert("Harap masukkan password admin terlebih dahulu untuk me-reset data di server!");
+            document.getElementById("admin_password_input").focus();
+            return;
+          }
+          
           localStorage.removeItem("sewu_page_data");
-          initAdminCMS();
-          showToast("Sistem berhasil di-reset ke default!");
+          
+          // Send default data to reset server file as well
+          const payload = {
+            ...defaultPageData,
+            admin_password_input: passwordInput
+          };
+          
+          try {
+            const response = await fetch('save_config.php', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (response.ok && result.status === "success") {
+              initAdminCMS();
+              showToast("Sistem & Server berhasil di-reset ke default!");
+            } else {
+              alert("Gagal me-reset server: " + result.message);
+            }
+          } catch(err) {
+            initAdminCMS();
+            showToast("Lokal browser di-reset (Server Luring).");
+          }
         }
       }
 
       // Show Toast Notification
-      function showToast(message) {
+      function showToast(message, isError = false) {
         const toast = document.getElementById("toast-notif");
         document.getElementById("toast-message").textContent = message;
+        
+        if (isError) {
+          toast.classList.add("toast-error");
+        } else {
+          toast.classList.remove("toast-error");
+        }
+        
         toast.classList.add("show");
         
         setTimeout(() => {
           toast.classList.remove("show");
-        }, 3000);
+        }, 3500);
       }
 
       // Export Config File (JSON)
@@ -1357,8 +1546,18 @@
             // Validate basic keys existence
             if (importedData.meta_title && importedData.hero_title_main) {
               localStorage.setItem("sewu_page_data", JSON.stringify(importedData));
-              initAdminCMS();
-              showToast("Konfigurasi berhasil diimpor!");
+              
+              // Pre-fill inputs
+              Object.keys(defaultPageData).forEach(key => {
+                const inputEl = document.getElementById(key);
+                const val = importedData[key] !== undefined ? importedData[key] : defaultPageData[key];
+                if (inputEl) inputEl.value = val;
+                
+                const previewEl = document.getElementById(`preview-${key}`);
+                if (previewEl && val) previewEl.src = val;
+              });
+              
+              showToast("Konfigurasi berhasil diimpor! Silakan klik 'Simpan Perubahan' dengan password untuk mengunggah ke server.");
             } else {
               alert("Format berkas JSON tidak valid untuk konfigurasi Sew U.");
             }

@@ -23,7 +23,7 @@ const defaultPageData = {
   stat_num_3: "99%",
   stat_lbl_3: "Pelanggan Puas",
   stat_num_4: "24/7",
-  stat_lbl_4: "Support Aktif",
+  stat_lbl_4: "Support Hack",
   img_hero_mockup: "asset/image/hero_mockup.jpg",
   glass_float_1_title: "+45% Pendapatan",
   glass_float_1_desc: "Rata-rata kenaikan omset",
@@ -113,22 +113,34 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. CMS CONTENT LOADER
   loadCMSContent();
 
-  function loadCMSContent() {
-    let storedData = localStorage.getItem("sewu_page_data");
+  async function loadCMSContent() {
     let pageData = {};
 
-    if (storedData) {
-      try {
-        pageData = JSON.parse(storedData);
-      } catch(e) {
-        console.error("Error parsing JSON", e);
-        return;
+    // 1. Try to load config dynamically from the server first
+    try {
+      const response = await fetch('sewu_config.json');
+      if (response.ok) {
+        pageData = await response.json();
+        // Sync cache to local storage
+        localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
+      } else {
+        throw new Error("sewu_config.json not found on server");
       }
-    } else {
-      // First load, save defaults to localStorage
-      pageData = {...defaultPageData};
-      localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
-      return; // Use default hardcoded markup
+    } catch(e) {
+      console.warn("CMS: Failed to fetch from server. Using local storage fallback.", e);
+      
+      // 2. Fallback to local storage
+      let storedData = localStorage.getItem("sewu_page_data");
+      if (storedData) {
+        try {
+          pageData = JSON.parse(storedData);
+        } catch(err) {
+          pageData = {...defaultPageData};
+        }
+      } else {
+        pageData = {...defaultPageData};
+        localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
+      }
     }
 
     // Apply values to elements with data-cms-key
