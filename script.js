@@ -116,9 +116,12 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadCMSContent() {
     let pageData = {};
 
+    const base = window.location.protocol === 'file:' ? 'https://sew-u.my.id' : '';
+    const apiLoadUrl = `${base}/api/load`;
+
     // 1. Try to load config dynamically from the cloud database
     try {
-      const response = await fetch('https://jsonblob.com/api/jsonBlob/019f4189-d81d-7ceb-a109-ef1b2e1f47fd');
+      const response = await fetch(apiLoadUrl);
       if (response.ok) {
         pageData = await response.json();
         // Sync cache to local storage

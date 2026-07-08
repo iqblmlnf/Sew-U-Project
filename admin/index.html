@@ -1263,13 +1263,24 @@
         contact_address: "Jl. Fashion No. 123, Bandung"
       };
 
-      // Load data from JSONBlob cloud database
+
+      // API Endpoints for Vercel Serverless Functions
+      const getApiUrls = () => {
+        const base = window.location.protocol === 'file:' ? 'https://sew-u.my.id' : '';
+        return {
+          save: `${base}/api/save`,
+          load: `${base}/api/load`
+        };
+      };
+
+      // Load data from JSONBlob cloud database via Vercel serverless helper
       async function initAdminCMS() {
         let storedData = localStorage.getItem("sewu_page_data");
         let pageData = {};
+        const api = getApiUrls();
         
         try {
-          const response = await fetch('https://jsonblob.com/api/jsonBlob/019f4189-d81d-7ceb-a109-ef1b2e1f47fd');
+          const response = await fetch(api.load);
           if (response.ok) {
             pageData = await response.json();
             localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
@@ -1308,20 +1319,13 @@
         });
       }
 
-      // Save Form inputs into localStorage AND send to JSONBlob cloud database (real-time for all devices)
+      // Save Form inputs into localStorage AND send to cloud database via Vercel api
       async function saveCMSData() {
         const passwordInput = document.getElementById("admin_password_input").value.trim();
         
         if (!passwordInput) {
           showToast("PERINGATAN: Harap masukkan password admin terlebih dahulu!", true);
           // Highlight password input
-          document.getElementById("admin_password_input").focus();
-          document.getElementById("admin_password_input").style.borderColor = "red";
-          return;
-        }
-        
-        if (passwordInput !== "sewuadmin123") {
-          showToast("ERROR: Password admin salah. Gagal menyimpan ke server.", true);
           document.getElementById("admin_password_input").focus();
           document.getElementById("admin_password_input").style.borderColor = "red";
           return;
@@ -1351,20 +1355,30 @@
         // 1. Save to local storage (safety backup)
         localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
         
-        // 2. Send to JSONBlob cloud database
+        // Add password input payload to authenticate
+        const payload = {
+          ...pageData,
+          admin_password_input: passwordInput
+        };
+
+        const api = getApiUrls();
+        
+        // 2. Send to Vercel api/save serverless function
         try {
-          const response = await fetch('https://jsonblob.com/api/jsonBlob/019f4189-d81d-7ceb-a109-ef1b2e1f47fd', {
-            method: 'PUT',
+          const response = await fetch(api.save, {
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(pageData)
+            body: JSON.stringify(payload)
           });
           
-          if (response.ok) {
+          const result = await response.json();
+          
+          if (response.ok && result.status === "success") {
             showToast("Perubahan Berhasil Disimpan di Cloud Server!");
           } else {
-            showToast("ERROR: Gagal menyimpan ke cloud database.", true);
+            showToast("ERROR: " + (result.message || "Gagal menyimpan di server"), true);
           }
         } catch(error) {
           console.error("Connection failed", error);
@@ -1451,7 +1465,7 @@
         });
       }
 
-      // Reset to defaults in cloud database
+      // Reset to defaults in cloud database via Vercel api
       async function resetToDefaults() {
         if (confirm("Apakah Anda yakin ingin menghapus semua kustomisasi dan mengembalikan tampilan asli website?")) {
           const passwordInput = document.getElementById("admin_password_input").value.trim();
@@ -1462,26 +1476,28 @@
             return;
           }
 
-          if (passwordInput !== "sewuadmin123") {
-            alert("Password admin salah. Gagal me-reset data.");
-            return;
-          }
+          const api = getApiUrls();
+          const payload = {
+            ...defaultPageData,
+            admin_password_input: passwordInput
+          };
           
           localStorage.removeItem("sewu_page_data");
           
           try {
-            const response = await fetch('https://jsonblob.com/api/jsonBlob/019f4189-d81d-7ceb-a109-ef1b2e1f47fd', {
-              method: 'PUT',
+            const response = await fetch(api.save, {
+              method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify(defaultPageData)
+              body: JSON.stringify(payload)
             });
-            if (response.ok) {
+            const result = await response.json();
+            if (response.ok && result.status === "success") {
               initAdminCMS();
               showToast("Sistem & Cloud Server berhasil di-reset ke default!");
             } else {
-              alert("Gagal me-reset cloud server.");
+              alert("Gagal me-reset cloud server: " + (result.message || ""));
             }
           } catch(err) {
             initAdminCMS();
