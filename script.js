@@ -116,9 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadCMSContent() {
     let pageData = {};
 
-    // 1. Try to load config dynamically from the server first
+    // 1. Try to load config dynamically from the cloud database
     try {
-      const response = await fetch('sewu_config.json');
+      const response = await fetch('https://jsonblob.com/api/jsonBlob/019f4189-d81d-7ceb-a109-ef1b2e1f47fd');
       if (response.ok) {
         pageData = await response.json();
         // Sync cache to local storage
