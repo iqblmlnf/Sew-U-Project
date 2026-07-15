@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 1. Try to load config dynamically from the cloud database
     try {
-      const response = await fetch(apiLoadUrl);
+      const response = await fetch(`${apiLoadUrl}?t=${Date.now()}`, { cache: 'no-store' });
       if (response.ok) {
         pageData = await response.json();
         // Sync cache to local storage

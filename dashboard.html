@@ -1274,7 +1274,7 @@
         const apiLoadUrl = `${base}/api/load`;
 
         try {
-          const response = await fetch(apiLoadUrl);
+          const response = await fetch(`${apiLoadUrl}?t=${Date.now()}`, { cache: 'no-store' });
           if (response.ok) {
             const pageData = await response.json();
             localStorage.setItem("sewu_page_data", JSON.stringify(pageData));
