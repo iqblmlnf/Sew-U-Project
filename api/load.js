@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
-  https.get('https://jsonblob.com/api/jsonBlob/019f4189-d81d-7ceb-a109-ef1b2e1f47fd', (response) => {
+  https.get('https://jsonblob.com/api/jsonBlob/019f6412-c02d-7780-87c9-eed30bf21c18', (response) => {
     let data = '';
     response.on('data', (chunk) => {
       data += chunk;
